@@ -31,7 +31,7 @@ const faqItems: FAQItem[] = [
   {
     id: 5,
     question: 'Do I work on realistic industrial projects? What will be on my resume?',
-    answer: 'Yes. Our curriculums contain extensive capstone implementations mimicking enterprise architectures. You will deploy multi-region configurations, automate pipelines (CI/CD) on live instances for CDEC, or train transformers, configure RAG vector models, and launch dashboards for XDSAI.',
+    answer: 'Yes. Our curriculums contain extensive capstone implementations mimicking enterprise architectures. You will deploy multi-region configurations, automate pipelines (CI/CD) on live instances for CDEC, or train transformers, configure RAG vector models, and launch dashboards for X-DSAAI.',
     category: 'curriculum'
   },
   {
@@ -73,7 +73,7 @@ export default function FAQ({ customFaqItems }: FAQProps) {
 
   return (
     <section id="faq" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      
+
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
         <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
@@ -86,7 +86,7 @@ export default function FAQ({ customFaqItems }: FAQProps) {
 
       {/* Tabs list & Accordions */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
+
         {/* Categories Navigation */}
         <div className="lg:col-span-4 flex flex-row lg:flex-col gap-2.5 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 shrink-0 select-none">
           {categories.map((cat) => (
@@ -108,8 +108,8 @@ export default function FAQ({ customFaqItems }: FAQProps) {
           {filteredFAQs.map((faq) => {
             const isExpanded = expandedFAQ === faq.id;
             return (
-              <div 
-                key={faq.id} 
+              <div
+                key={faq.id}
                 className={`rounded-2xl border transition-all duration-300 ${isExpanded ? 'border-purple bg-white shadow-md' : 'border-border-light bg-white/40 hover:bg-white'}`}
               >
                 <button

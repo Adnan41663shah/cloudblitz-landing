@@ -191,6 +191,31 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
               {errors.phone && <p className="mt-1 text-xs font-medium text-red-500">{errors.phone}</p>}
             </div>
 
+            {/* Current Experience Level */}
+            <div>
+              <label className="block text-[11.5px] font-bold uppercase tracking-wider text-text-medium mb-1">
+                Current Experience <span className={`${primaryColor} font-bold`}>*</span>
+              </label>
+              <div className="relative">
+                <select
+                  value={experience}
+                  onChange={(e) => setExperience(e.target.value)}
+                  className={`w-full rounded-2xl border border-border-light bg-slate-50/50 px-4 py-2.5 text-sm text-text-dark outline-none focus:${activeCourse === 'cdec' ? 'border-coral focus:ring-coral/20' : 'border-purple focus:ring-purple/20'} focus:ring-2 transition-all appearance-none cursor-pointer`}
+                >
+                  <option value="fresher">Fresher / College Student</option>
+                  <option value="1-3">1 - 3 Years Experience</option>
+                  <option value="3-5">3 - 5 Years Experience</option>
+                  <option value="5-8">5 - 8 Years Experience</option>
+                  <option value="8+">8+ Years Experience</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-text-muted">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
             <div>
               <label className="block text-[11.5px] font-bold uppercase tracking-wider text-text-medium mb-1">
                 Selected Course
@@ -205,7 +230,7 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
                 </div>
                 <div className="min-w-0 flex-1">
                   <span className="block text-sm font-bold truncate leading-tight text-text-dark">
-                    {activeCourse === 'cdec' ? 'Cloud DevOps Engineering (CDEC)' : 'Expert in Data Science & AI (XDSAI)'}
+                    {activeCourse === 'cdec' ? 'Cloud DevOps Engineering (CDEC)' : 'Expert in Data Science & AI (X-DSAAI)'}
                   </span>
                 </div>
               </div>
@@ -226,7 +251,7 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
                 </>
               ) : (
                 <>
-                  <span>Download Syllabus & Proceed</span>
+                  <span>Lock In My Free Mentorship</span>
                   <svg className="h-4.5 w-4.5 animate-bounce-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -244,7 +269,7 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
           </div>
           <h3 className="text-2xl font-black text-text-dark tracking-tight">Application Received!</h3>
           <p className="mt-3 text-sm text-text-muted max-w-sm leading-relaxed">
-            Congratulations <strong>{name}</strong>! Your inquiry for <strong>{activeCourse === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (XDSAI)'}</strong> is confirmed. An expert counselor will contact you shortly.
+            Congratulations <strong>{name}</strong>! Your inquiry for <strong>{activeCourse === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (X-DSAAI)'}</strong> is confirmed. An expert counselor will contact you shortly.
           </p>
         </div>
       )}

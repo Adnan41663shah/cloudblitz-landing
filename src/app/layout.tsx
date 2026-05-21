@@ -19,8 +19,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "CLOUDBLITZ | Master Cloud DevOps (CDEC) & Data Science & AI (XDSAI)",
-  description: "Propel your career with Cloudblitz's elite, live-interactive tech cohorts. Master Kubernetes, AWS and CI/CD pipelines (CDEC) or Deep Learning, Generative AI and analytics dashboarding (XDSAI). Assured corporate placements.",
+  title: "CLOUDBLITZ | Master Cloud DevOps (CDEC) & Data Science & AI (X-DSAAI)",
+  description: "Propel your career with Cloudblitz's elite, live-interactive tech cohorts. Master Kubernetes, AWS and CI/CD pipelines (CDEC) or Deep Learning, Generative AI and analytics dashboarding (X-DSAAI). Assured corporate placements.",
   keywords: [
     "Cloud DevOps Course",
     "DevOps Engineering",
@@ -31,20 +31,20 @@ export const metadata: Metadata = {
     "Machine Learning bootcamp",
     "Cloudblitz admissions",
     "CDEC course details",
-    "XDSAI program syllabus"
+    "X-DSAAI program syllabus"
   ],
   authors: [{ name: "CLOUDBLITZ Academic Team", url: "https://cloudblitz.in" }],
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://cloudblitz.in",
-    title: "CLOUDBLITZ | Premium Tech Training (CDEC & XDSAI)",
-    description: "Immersive cohorts in Cloud DevOps (CDEC) & Data Science with AI (XDSAI). Learn from active engineers, construct robust enterprise pipelines, and secure placements.",
+    title: "CLOUDBLITZ | Premium Tech Training (CDEC & X-DSAAI)",
+    description: "Immersive cohorts in Cloud DevOps (CDEC) & Data Science with AI (X-DSAAI). Learn from active engineers, construct robust enterprise pipelines, and secure placements.",
     siteName: "CLOUDBLITZ",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CLOUDBLITZ | Professional Cohorts CDEC & XDSAI",
+    title: "CLOUDBLITZ | Professional Cohorts CDEC & X-DSAAI",
     description: "Transition into elite tech engineering roles. Live mentorship, sandbox sandboxes, and dedicated mock interview reviews.",
   },
   icons: {
@@ -70,7 +70,7 @@ const jsonLDSchema = {
     },
     {
       "@type": "Course",
-      "name": "Expert in Data Science using AI (XDSAI)",
+      "name": "Expert in Data Science using AI (X-DSAAI)",
       "description": "Elite machine learning cohort spanning advanced SQL CTE structures, Pandas analytical wrangling, PyTorch neural models, LLM API scaling, and Tableau dashboard storytelling.",
       "provider": {
         "@type": "EducationalOrganization",

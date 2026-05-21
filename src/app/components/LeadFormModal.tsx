@@ -96,70 +96,83 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
+
+      // Trigger automatic PDF download for syllabus
+      if (purpose === 'syllabus' || purpose === 'quick') {
+        const fileName = course === 'cdec' ? 'CDEC-AI.pdf' : 'X-DSAAI.pdf';
+        const fileUrl = `/assets/${fileName}`;
+
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }, 1200);
   };
 
-    // Determine customized content based on 'purpose' trigger mode
-    let headingText = "Kickstart Your Tech Career";
-    let descriptionText = "Fill the form to download the program syllabus, lock in active rewards, and book a 1-on-1 career call.";
-    let submitButtonText = "Download Syllabus";
-    let successContent = (
+  // Determine customized content based on 'purpose' trigger mode
+  let headingText = "Kickstart Your Tech Career";
+  let descriptionText = "Fill the form to download the program syllabus, lock in active rewards, and book a 1-on-1 career call.";
+  let submitButtonText = "Download Syllabus";
+  let successContent = (
+    <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
+      Congratulations <strong>{name}</strong>! Your program enrollment inquiry for <strong>{course === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (X-DSAAI)'}</strong> has been provisioned.
+    </p>
+  );
+
+  if (purpose === 'consultation') {
+    headingText = "Book Free Career Consultation";
+    descriptionText = "Fill the form below to lock in your free 1-on-1 expert mentorship session with our senior tech advisors.";
+    submitButtonText = "Confirm Consultation Slot";
+    successContent = (
       <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
-        Congratulations <strong>{name}</strong>! Your program enrollment inquiry for <strong>{course === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (XDSAI)'}</strong> has been provisioned.
+        Congratulations <strong>{name}</strong>! Your free 1-on-1 career consultation slot has been reserved. One of our senior advisors will call you shortly.
       </p>
     );
-  
-    if (purpose === 'consultation') {
-      headingText = "Book Free Career Consultation";
-      descriptionText = "Fill the form below to lock in your free 1-on-1 expert mentorship session with our senior tech advisors.";
-      submitButtonText = "Confirm Consultation Slot";
-      successContent = (
-        <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
-          Congratulations <strong>{name}</strong>! Your free 1-on-1 career consultation slot has been reserved. One of our senior advisors will call you shortly.
-        </p>
-      );
-    } else if (purpose === 'quick') {
-      headingText = "Get Quick Assistance";
-      descriptionText = "Have questions? Fill the form below to request callback assistance and get detailed program info.";
-      submitButtonText = "Request Callback";
-      successContent = (
-        <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
-          Congratulations <strong>{name}</strong>! Your callback request is received. Our academic coordinator will reach out to you within 30 minutes during working hours.
-        </p>
-      );
-    } else if (purpose === 'syllabus') {
-      headingText = "Download Detailed Syllabus";
-      descriptionText = "Fill the form below to receive the complete, industry-vetted program curriculum and unlock cohort details.";
-      submitButtonText = "Download Syllabus";
-      successContent = (
-        <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
-          Congratulations <strong>{name}</strong>! Your detailed syllabus download link has been sent to your email.
-        </p>
-      );
-    } else if (purpose === 'offer') {
-      headingText = "Avail Special Promotion";
-      descriptionText = "Register below to secure the current active promotional offer and claim your free 1-on-1 industry mock interviews.";
-      submitButtonText = "Avail Promotional Offer Now";
-      successContent = (
-        <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
-          Congratulations <strong>{name}</strong>! Your exclusive slot is locked in. The active promotional offer has been secured: <strong className="text-coral">{promoText || "May Special Offer"}</strong> for <strong>{course === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (XDSAI)'}</strong>. Our onboarding advisor will contact you shortly!
-        </p>
-      );
-    }
+  } else if (purpose === 'quick') {
+    headingText = "Get Quick Assistance";
+    descriptionText = "Have questions? Fill the form below to request callback assistance and get detailed program info.";
+    submitButtonText = "Request Callback";
+    successContent = (
+      <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
+        Congratulations <strong>{name}</strong>! Your callback request is received. Our academic coordinator will reach out to you within 30 minutes during working hours.
+      </p>
+    );
+  } else if (purpose === 'syllabus') {
+    headingText = "Download Detailed Syllabus";
+    descriptionText = "Fill the form below to receive the complete, industry-vetted program curriculum and unlock cohort details.";
+    submitButtonText = "Download Syllabus";
+    successContent = (
+      <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
+        Congratulations <strong>{name}</strong>! Your detailed syllabus download link has been sent to your email.
+      </p>
+    );
+  } else if (purpose === 'offer') {
+    headingText = "Avail Special Promotion";
+    descriptionText = "Register below to secure the current active promotional offer and claim your free 1-on-1 industry mock interviews.";
+    submitButtonText = "Avail Promotional Offer Now";
+    successContent = (
+      <p className="mt-3 text-sm sm:text-base text-text-muted max-w-md leading-relaxed">
+        Congratulations <strong>{name}</strong>! Your exclusive slot is locked in. The active promotional offer has been secured: <strong className="text-coral">{promoText || "May Special Offer"}</strong> for <strong>{course === 'cdec' ? 'Cloud DevOps (CDEC)' : 'Data Science & AI (X-DSAAI)'}</strong>. Our onboarding advisor will contact you shortly!
+      </p>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop blur - reduced to 1.5px and lowered overlay opacity to preserve background legibility */}
-      <div 
+      <div
         className="absolute inset-0 bg-slate-950/15 transition-opacity duration-300"
         style={{ backdropFilter: 'blur(1.5px)', WebkitBackdropFilter: 'blur(1.5px)' }}
         onClick={onClose}
       />
-      
+
       {/* Modal Container - increased max-width to lg (512px) and increased padding to p-5/sm:p-7 */}
       <div className="relative w-full max-w-lg transform overflow-hidden rounded-3xl border border-border-light bg-white p-5 text-left shadow-2xl transition-all sm:p-7 animate-scale-up">
         {/* Close Button */}
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 flex h-8.5 w-8.5 items-center justify-center rounded-full bg-slate-100/80 text-slate-500 hover:bg-slate-200 transition-colors"
           aria-label="Close modal"
@@ -202,8 +215,8 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                 <label className="block text-[11.5px] font-bold uppercase tracking-wider text-text-medium mb-1">
                   Full Name <span className="text-coral font-bold">*</span>
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Amit Sharma"
@@ -216,8 +229,8 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                 <label className="block text-[11.5px] font-bold uppercase tracking-wider text-text-medium mb-1">
                   Email Address <span className="text-text-muted text-[10px] font-normal lowercase">(optional)</span>
                 </label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
@@ -239,7 +252,7 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                       className="w-full rounded-2xl border border-border-light bg-slate-50/50 px-2.5 py-2 text-sm sm:text-base text-text-dark outline-none focus:border-coral focus:ring-2 focus:ring-coral/20 transition-all flex items-center justify-between font-semibold hover:bg-slate-100/50 cursor-pointer shadow-sm"
                     >
                       <div className="flex items-center gap-1.5 min-w-0">
-                        <img 
+                        <img
                           src={`https://flagcdn.com/w40/${selectedCountry.flag}.png`}
                           alt={`${selectedCountry.name} flag`}
                           className="h-3 w-4.5 object-cover rounded-[1px] shadow-sm shrink-0 border border-slate-200"
@@ -261,12 +274,11 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                               setCountryCode(c.code);
                               setDropdownOpen(false);
                             }}
-                            className={`w-full px-3 py-2 text-left text-xs text-text-dark hover:bg-slate-50 flex items-center justify-between transition-colors duration-150 cursor-pointer ${
-                              countryCode === c.code ? 'bg-coral/5 text-coral font-semibold' : 'font-medium'
-                            }`}
+                            className={`w-full px-3 py-2 text-left text-xs text-text-dark hover:bg-slate-50 flex items-center justify-between transition-colors duration-150 cursor-pointer ${countryCode === c.code ? 'bg-coral/5 text-coral font-semibold' : 'font-medium'
+                              }`}
                           >
                             <div className="flex items-center gap-1.5 min-w-0">
-                              <img 
+                              <img
                                 src={`https://flagcdn.com/w40/${c.flag}.png`}
                                 alt={`${c.name} flag`}
                                 className="h-3.5 w-5 object-cover rounded-[2px] shadow-sm shrink-0 border border-slate-200"
@@ -283,8 +295,8 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                   </div>
 
                   {/* Digit-only 10-digit Phone Number Input */}
-                  <input 
-                    type="tel" 
+                  <input
+                    type="tel"
                     value={phone}
                     onChange={(e) => {
                       const val = e.target.value.replace(/\D/g, '');
@@ -301,19 +313,17 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                 <label className="block text-[11.5px] font-bold uppercase tracking-wider text-text-medium mb-1">
                   Selected Course (Auto-Extracted)
                 </label>
-                <div className={`flex items-center gap-2.5 p-2.5 rounded-2xl border ${
-                  course === 'cdec' 
-                    ? 'border-coral/20 bg-coral/5 text-coral' 
+                <div className={`flex items-center gap-2.5 p-2.5 rounded-2xl border ${course === 'cdec'
+                    ? 'border-coral/20 bg-coral/5 text-coral'
                     : 'border-purple/20 bg-purple/5 text-purple'
-                }`}>
-                  <div className={`h-8.5 w-8.5 rounded-xl flex items-center justify-center font-bold text-[10.5px] shrink-0 shadow-sm ${
-                    course === 'cdec' ? 'bg-gradient-to-br from-coral to-pink-500 text-white' : 'bg-gradient-to-br from-purple to-indigo-600 text-white'
                   }`}>
+                  <div className={`h-8.5 w-8.5 rounded-xl flex items-center justify-center font-bold text-[10.5px] shrink-0 shadow-sm ${course === 'cdec' ? 'bg-gradient-to-br from-coral to-pink-500 text-white' : 'bg-gradient-to-br from-purple to-indigo-600 text-white'
+                    }`}>
                     {course === 'cdec' ? 'CB' : 'DS'}
                   </div>
                   <div className="min-w-0 flex-1">
                     <span className="block text-sm font-bold truncate leading-tight text-text-dark">
-                      {course === 'cdec' ? 'Cloud DevOps Engineering (CDEC)' : 'Expert in Data Science & AI (XDSAI)'}
+                      {course === 'cdec' ? 'Cloud DevOps Engineering (CDEC)' : 'Expert in Data Science & AI (X-DSAAI)'}
                     </span>
                     <span className="block text-[9.5px] text-text-muted mt-0.5">
                       Program track synchronized automatically

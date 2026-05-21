@@ -10,8 +10,8 @@ interface HeroProps {
   openModal: (course: CourseType, purpose?: 'syllabus' | 'consultation' | 'quick') => void;
   cdecBatch?: string;
   cdecSeats?: string;
-  xdsaiBatch?: string;
-  xdsaiSeats?: string;
+  XDSAAIBatch?: string;
+  XDSAAISeats?: string;
 }
 
 export default function Hero({
@@ -20,8 +20,8 @@ export default function Hero({
   openModal,
   cdecBatch,
   cdecSeats,
-  xdsaiBatch,
-  xdsaiSeats
+  XDSAAIBatch,
+  XDSAAISeats
 }: HeroProps) {
   // Simulated logs state for DevOps console
   const [devopsLogs, setDevopsLogs] = useState<string[]>([]);
@@ -91,7 +91,7 @@ export default function Hero({
 
   // Data Science simulated terminal log loop + metric animator
   useEffect(() => {
-    if (activeCourse !== 'xdsai') return;
+    if (activeCourse !== 'X-DSAAI') return;
 
     const logsList = [
       'cloudblitz-ai-sandbox v2.0.1 loading components...',
@@ -265,7 +265,7 @@ export default function Hero({
                 </span>
                 <span className="block text-sm sm:text-base font-extrabold text-text-dark tracking-tight leading-tight">
                   Next Batch Starts: <span className={activeCourse === 'cdec' ? 'text-gradient-coral font-black' : 'text-gradient-purple font-black'}>
-                    {activeCourse === 'cdec' ? (cdecBatch || 'May 25, 2026') : (xdsaiBatch || 'May 26, 2026')}
+                    {activeCourse === 'cdec' ? (cdecBatch || 'May 25, 2026') : (XDSAAIBatch || 'May 26, 2026')}
                   </span>
                 </span>
               </div>
@@ -275,7 +275,7 @@ export default function Hero({
                 <span className="text-[9.5px] font-extrabold uppercase text-text-muted tracking-wider leading-none">Seats Left</span>
                 <span className={`text-base font-black animate-pulse ${activeCourse === 'cdec' ? 'text-coral' : 'text-purple'
                   }`}>
-                  {activeCourse === 'cdec' ? (cdecSeats || '04 / 20') : (xdsaiSeats || '06 / 20')}
+                  {activeCourse === 'cdec' ? (cdecSeats || '04 / 20') : (XDSAAISeats || '06 / 20')}
                 </span>
               </div>
             </div>
@@ -320,27 +320,33 @@ export default function Hero({
 
           {/* RIGHT COLUMN: Interactive Lead Form */}
           <div className="lg:col-span-6 flex flex-col items-center justify-center relative w-full px-2 gap-4">
-            
+
             {/* Quick Info Cards: Duration & Mode of Training */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-[480px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full max-w-[480px]">
               {/* Duration Card */}
-              <div className="bg-slate-50/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-3 flex flex-col items-center justify-center text-center hover:bg-white transition-colors duration-300 shadow-sm">
-                <span className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Duration</span>
-                <div className="flex items-center gap-1.5">
-                  <svg className="h-4.5 w-4.5 text-[#2A5C75]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="text-sm font-black text-slate-800 whitespace-nowrap">6 Months</span>
+              <div className={`relative overflow-hidden bg-white/70 backdrop-blur-lg border rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${activeCourse === 'cdec' ? 'border-coral/20 hover:border-coral/40' : 'border-purple/20 hover:border-purple/40'}`}>
+                <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${activeCourse === 'cdec' ? 'from-coral/5 to-transparent' : 'from-purple/5 to-transparent'}`} />
+                <span className="relative block text-[10px] font-extrabold text-slate-500 mb-2.5 uppercase tracking-[0.15em]">Duration</span>
+                <div className="relative flex items-center gap-2.5">
+                  <div className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 shadow-inner ${activeCourse === 'cdec' ? 'bg-coral/10 text-coral' : 'bg-purple/10 text-purple'}`}>
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <span className="text-[15px] font-black text-slate-800 whitespace-nowrap">6 Months</span>
                 </div>
               </div>
 
               {/* Mode of Training Card */}
-              <div className="bg-slate-50/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-3 flex flex-col items-center justify-center text-center hover:bg-white transition-colors duration-300 shadow-sm">
-                <span className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Training Mode</span>
-                <div className="flex items-center gap-1.5">
-                  <svg className="h-5 w-5 text-[#2A5C75]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+              <div className={`relative overflow-hidden bg-white/70 backdrop-blur-lg border rounded-2xl p-4 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${activeCourse === 'cdec' ? 'border-coral/20 hover:border-coral/40' : 'border-purple/20 hover:border-purple/40'}`}>
+                <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${activeCourse === 'cdec' ? 'from-coral/5 to-transparent' : 'from-purple/5 to-transparent'}`} />
+                <span className="relative block text-[10px] font-extrabold text-slate-500 mb-2.5 uppercase tracking-[0.15em]">Training Mode</span>
+                <div className="relative flex items-center gap-2.5">
+                  <div className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 shadow-inner ${activeCourse === 'cdec' ? 'bg-coral/10 text-coral' : 'bg-purple/10 text-purple'}`}>
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
                   <span className="text-[13px] font-black text-slate-800 leading-tight">Classroom & Online</span>
                 </div>
               </div>

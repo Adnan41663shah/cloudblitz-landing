@@ -270,30 +270,30 @@ export default function AdminCustomizer({
                 </div>
               </div>
 
-              {/* Data Science XDSAI Section */}
+              {/* Data Science X-DSAAI Section */}
               <div className="space-y-3.5 p-3.5 rounded-2xl border border-white/5 bg-white/[0.02]">
                 <span className="inline-flex rounded-md bg-purple/10 px-2 py-0.5 text-[9px] font-black text-purple uppercase tracking-wider">
-                  Data Science & AI (XDSAI)
+                  Data Science & AI (X-DSAAI)
                 </span>
                 <div>
                   <label className="block text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1">
-                    XDSAI Next Batch Schedule Card
+                    X-DSAAI Next Batch Schedule Card
                   </label>
                   <input
                     type="text"
-                    value={content.heroXDSAIBatchDate}
-                    onChange={(e) => handleTextChange('heroXDSAIBatchDate', e.target.value)}
+                    value={content.heroXDSAAIBatchDate}
+                    onChange={(e) => handleTextChange('heroXDSAAIBatchDate', e.target.value)}
                     className="w-full rounded-xl border border-white/10 bg-white/[0.04] p-2.5 text-xs outline-none focus:border-coral transition-all"
                   />
                 </div>
                 <div>
                   <label className="block text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1">
-                    XDSAI Seats Left (e.g. 06 / 20)
+                    X-DSAAI Seats Left (e.g. 06 / 20)
                   </label>
                   <input
                     type="text"
-                    value={content.heroXDSAISeats || ''}
-                    onChange={(e) => handleTextChange('heroXDSAISeats', e.target.value)}
+                    value={content.heroXDSAAISeats || ''}
+                    onChange={(e) => handleTextChange('heroXDSAAISeats', e.target.value)}
                     placeholder="06 / 20"
                     className="w-full rounded-xl border border-white/10 bg-white/[0.04] p-2.5 text-xs outline-none focus:border-coral transition-all"
                   />

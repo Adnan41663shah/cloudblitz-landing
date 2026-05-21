@@ -32,8 +32,8 @@ const hiringPartners = [
 ];
 
 interface FooterProps {
-  setActiveCourse?: (course: 'cdec' | 'xdsai') => void;
-  openModal?: (course: 'cdec' | 'xdsai', purpose?: 'syllabus' | 'consultation' | 'quick') => void;
+  setActiveCourse?: (course: 'cdec' | 'X-DSAAI') => void;
+  openModal?: (course: 'cdec' | 'X-DSAAI', purpose?: 'syllabus' | 'consultation' | 'quick') => void;
 }
 
 export default function Footer({ setActiveCourse, openModal }: FooterProps) {
@@ -43,7 +43,7 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, course: 'cdec' | 'xdsai', targetId: string) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>, course: 'cdec' | 'X-DSAAI', targetId: string) => {
     e.preventDefault();
     if (setActiveCourse) {
       setActiveCourse(course);
@@ -56,17 +56,17 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
 
   return (
     <footer className="w-full bg-slate-100 border-t border-border-light pt-16 pb-8 transition-colors duration-300">
-      
+
       {/* 1. Hiring Partners Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 border-b border-border-light text-center">
         <h3 className="text-xs font-extrabold uppercase tracking-wider text-text-muted mb-8">
           Our Graduates Work at Global Tech Leaders
         </h3>
-        
+
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-8 sm:gap-10 items-center justify-items-center opacity-70">
           {hiringPartners.map((partner, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               className="flex flex-col items-center justify-center text-slate-500 hover:text-slate-800 transition-colors duration-300 select-none group w-full"
             >
               <div className="h-10 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
@@ -82,7 +82,7 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
 
       {/* 2. Main Footer Grid info */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 items-start">
-        
+
         {/* Info Column */}
         <div className="col-span-1 sm:col-span-2 md:col-span-4 space-y-4">
           <a
@@ -102,7 +102,7 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
             Cloudblitz is a premium professional education platform delivering hands-on, live interactive training pathways in Cloud Computing, DevOps Engineering, Data Science, and Machine Learning.
           </p>
           <div className="text-xs text-text-muted space-y-1">
-            <p>📍 corporate Office: Floor 4, Cyber Towers, Sector 62, Noida, UP, India</p>
+            <p>📍 2nd Floor, Dev heights, Lane Ring Road, above Carat, Pratap Nagar Square, Tatya Tope Nagar, Pratap Nagar, Nagpur, Maharashtra 440022</p>
             <p>✉ Email Support: admissions@cloudblitz.in</p>
           </div>
         </div>
@@ -112,8 +112,8 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
           <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">DevOps Pathway</h4>
           <ul className="text-[11px] sm:text-xs text-text-medium space-y-2.5 font-medium">
             <li>
-              <a 
-                href="#hero" 
+              <a
+                href="#hero"
                 onClick={(e) => handleLinkClick(e, 'cdec', 'hero')}
                 className="hover:text-coral transition-colors"
               >
@@ -121,8 +121,8 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
               </a>
             </li>
             <li>
-              <a 
-                href="#syllabus" 
+              <a
+                href="#syllabus"
                 onClick={(e) => handleLinkClick(e, 'cdec', 'syllabus')}
                 className="hover:text-coral transition-colors"
               >
@@ -130,8 +130,8 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
               </a>
             </li>
             <li>
-              <a 
-                href="#tools-showcase" 
+              <a
+                href="#tools-showcase"
                 onClick={(e) => handleLinkClick(e, 'cdec', 'tools-showcase')}
                 className="hover:text-coral transition-colors"
               >
@@ -145,27 +145,27 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
           <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">Data Science Pathway</h4>
           <ul className="text-[11px] sm:text-xs text-text-medium space-y-2.5 font-medium">
             <li>
-              <a 
-                href="#hero" 
-                onClick={(e) => handleLinkClick(e, 'xdsai', 'hero')}
+              <a
+                href="#hero"
+                onClick={(e) => handleLinkClick(e, 'X-DSAAI', 'hero')}
                 className="hover:text-purple transition-colors"
               >
-                Expert in AI (XDSAI)
+                Expert in AI (X-DSAAI)
               </a>
             </li>
             <li>
-              <a 
-                href="#syllabus" 
-                onClick={(e) => handleLinkClick(e, 'xdsai', 'syllabus')}
+              <a
+                href="#syllabus"
+                onClick={(e) => handleLinkClick(e, 'X-DSAAI', 'syllabus')}
                 className="hover:text-purple transition-colors"
               >
                 Syllabus Overview
               </a>
             </li>
             <li>
-              <a 
-                href="#placements" 
-                onClick={(e) => handleLinkClick(e, 'xdsai', 'placements')}
+              <a
+                href="#placements"
+                onClick={(e) => handleLinkClick(e, 'X-DSAAI', 'placements')}
                 className="hover:text-purple transition-colors"
               >
                 Career Outcomes
@@ -177,16 +177,33 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
         {/* Branches Column */}
         <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 space-y-3">
           <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">Our Campuses</h4>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[11px] sm:text-xs text-text-medium font-medium">
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (HQ)</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (Hinjewadi)</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (Kharadi)</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Mumbai</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Bangalore</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Hyderabad</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Delhi NCR</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Chennai</span>
-            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Kolkata</span>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-[11px] sm:text-xs text-text-medium font-medium">
+            {[
+              { name: 'Indore', address: '1st floor, IDBI BANK, Plot no, Sapna Sangeeta Rd, Tower Square, Khatiwala Tank, Indore, Madhya Pradesh 452014' },
+              { name: 'Kothrud, Pune', address: '2nd floor, Kalpvrushksha Building, Mayur Colony, Kothrud, Pune Maharashtra 411038' },
+              { name: 'Wakad, Pune', address: 'Fifth Floor, Bhama Pearl, near Wakad, Bhujbal Vasti, Wakad, Pimpri-Chinchwad, Maharashtra 411057' },
+              { name: 'Nagpur', address: '2nd Floor, Dev Heights, Above Carat Lane, Ring Road, Pratap Nagar Square, Tatya Tope Nagar, Pratap Nagar, Nagpur, Maharashtra – 440022' },
+              { name: 'Nashik', address: '2nd floor, Sakhare Arcade, above Biba Showroom, Opposite Anna Idli Restaurant, Near Canada Corner, College Road, Nashik, 422005' },
+              { name: 'Kharadi, Pune', address: '15 3rd Floor, City Vista, Office No. 15A, 14A, A Wing, Fountain Road, Ashoka Nagar, Kharadi, Pune, Maharashtra 411014' },
+              { name: 'Chakan, Pune', address: 'Vishal Capital 2nd floor, office no 215 and 216, Gat no 1638 and 1648 pune Nashik Highway chakan Tal-khed, Dist- pune pin -410501' },
+              { name: 'Amravati', address: 'Ground floor, Narayan Niketan, opp dr. Sune hospital, narayan niketan, Rajapeth, Amravati Maharastra - 444606' },
+              { name: 'Sambhaji Nagar', address: 'Coming Soon', isSoon: true },
+            ].map((campus, idx) => (
+              <a
+                key={idx}
+                href={campus.isSoon ? undefined : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(campus.address)}`}
+                target={campus.isSoon ? undefined : "_blank"}
+                rel={campus.isSoon ? undefined : "noopener noreferrer"}
+                title={campus.address}
+                className={`flex items-center gap-1.5 transition-colors group ${campus.isSoon ? 'cursor-default opacity-70' : 'hover:text-coral cursor-pointer'}`}
+              >
+                <span className={`h-1.5 w-1.5 rounded-full shrink-0 transition-colors ${campus.isSoon ? 'bg-slate-300' : 'bg-coral group-hover:bg-coral'}`}></span>
+                <span className="truncate" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  {campus.name}
+                  {campus.isSoon && <span className="text-[8px] bg-amber-100 text-amber-700 px-1 py-0.5 rounded font-black tracking-wider leading-none mt-0.5">SOON</span>}
+                </span>
+              </a>
+            ))}
           </div>
         </div>
 
@@ -199,22 +216,22 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
         </div>
 
         <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-6 gap-y-2">
-          <a 
-            href="#" 
+          <a
+            href="#"
             onClick={(e) => { e.preventDefault(); if (openModal) openModal('cdec', 'consultation'); }}
             className="hover:text-coral transition-colors"
           >
             Terms of Service
           </a>
-          <a 
-            href="#" 
+          <a
+            href="#"
             onClick={(e) => { e.preventDefault(); if (openModal) openModal('cdec', 'consultation'); }}
             className="hover:text-coral transition-colors"
           >
             Privacy Policy
           </a>
-          <button 
-            onClick={scrollToTop} 
+          <button
+            onClick={scrollToTop}
             className="flex items-center gap-1 hover:text-coral transition-colors font-semibold focus:outline-none"
           >
             <span>Back to Top</span>

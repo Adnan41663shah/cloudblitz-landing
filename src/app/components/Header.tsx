@@ -159,7 +159,7 @@ export default function Header({
         ? 'py-2.5'
         : 'py-4'
         }`}>
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <nav className={`glass-nav rounded-4xl flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? 'h-16 md:h-17 shadow-md' : 'h-18 md:h-20 shadow-sm'
             }`}>
 
@@ -217,19 +217,19 @@ export default function Header({
 
                 <button
                   onClick={() => {
-                    setActiveCourse('xdsai');
+                    setActiveCourse('X-DSAAI');
                     scrollToSection('hero');
                   }}
-                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black tracking-tight transition-all duration-300 border ${activeCourse === 'xdsai'
+                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black tracking-tight transition-all duration-300 border ${activeCourse === 'X-DSAAI'
                     ? 'bg-purple border-purple text-white shadow-md shadow-purple/25 scale-100'
                     : 'border-transparent text-text-medium hover:text-purple hover:bg-purple/5'
                     }`}
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'xdsai'
+                  <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'X-DSAAI'
                     ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                     : 'bg-purple'
                     }`} />
-                  <span className="whitespace-nowrap">Data Science & AI [XDSAI]</span>
+                  <span className="whitespace-nowrap">Data Science & AI [X-DSAAI]</span>
                 </button>
               </div>
             </div>
@@ -299,12 +299,10 @@ export default function Header({
               </button>
             </div>
           </nav>
-        </div>
-      </div>
 
-      {/* Mobile Drawer menu (Gorgeously App-Like) */}
-      {mobileMenuOpen && (
-        <div className="fixed top-24 left-4 right-4 z-40 rounded-3xl border border-slate-200/50 bg-white/95 p-5 shadow-2xl flex flex-col gap-4 animate-scale-up backdrop-blur-xl">
+          {/* Mobile Drawer menu (Gorgeously App-Like) */}
+          {mobileMenuOpen && (
+            <div className="absolute top-full left-4 right-4 mt-2 z-50 rounded-3xl border border-slate-200/50 bg-white/95 p-5 shadow-2xl flex flex-col gap-4 animate-scale-up backdrop-blur-xl">
           {/* Mobile Course Switcher Header */}
           <div className="flex flex-col gap-2.5 p-2 bg-slate-50 rounded-2xl border border-slate-100">
             <div className="text-[9px] font-black text-text-muted uppercase tracking-widest px-2.5 pt-1.5 pb-0.5">
@@ -330,19 +328,19 @@ export default function Header({
 
               <button
                 onClick={() => {
-                  setActiveCourse('xdsai');
+                  setActiveCourse('X-DSAAI');
                   scrollToSection('hero');
                 }}
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'xdsai'
+                className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'X-DSAAI'
                   ? 'bg-purple border-purple text-white shadow-md shadow-purple/15'
                   : 'border-slate-200/60 text-text-medium hover:text-purple bg-white hover:bg-purple/5'
                   }`}
               >
-                <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'xdsai'
+                <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'X-DSAAI'
                   ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                   : 'bg-purple'
                   }`} />
-                <span>Data Science [XDSAI]</span>
+                <span>Data Science [X-DSAAI]</span>
               </button>
             </div>
           </div>
@@ -383,6 +381,9 @@ export default function Header({
           </button>
         </div>
       )}
+
+        </div>
+      </div>
     </>
   );
 }

@@ -1,4 +1,4 @@
-export type CourseType = 'cdec' | 'xdsai';
+export type CourseType = 'cdec' | 'X-DSAAI';
 
 export type ModalPurpose = 'syllabus' | 'consultation' | 'quick' | 'offer';
 

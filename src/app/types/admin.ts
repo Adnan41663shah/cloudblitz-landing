@@ -8,7 +8,7 @@ export interface SiteContent {
   promoTargetTimestamp?: number;
   heroCDECBatchDate: string;
   heroCDECSeats?: string;
-  heroXDSAIBatchDate: string;
-  heroXDSAISeats?: string;
-  faqs: FAQItem[];
+  heroXDSAAIBatchDate: string;
+  heroXDSAAISeats?: string;
+faqs: FAQItem[];
 }
