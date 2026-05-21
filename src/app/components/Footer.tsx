@@ -84,7 +84,7 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-8 items-start">
         
         {/* Info Column */}
-        <div className="col-span-1 md:col-span-5 space-y-4">
+        <div className="col-span-1 sm:col-span-2 md:col-span-4 space-y-4">
           <a
             href="https://cloudblitz.in/"
             target="_blank"
@@ -108,16 +108,16 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
         </div>
 
         {/* Link Columns */}
-        <div className="col-span-1 sm:col-span-1 md:col-span-3 space-y-3">
+        <div className="col-span-1 sm:col-span-1 md:col-span-3 lg:col-span-2 space-y-3">
           <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">DevOps Pathway</h4>
-          <ul className="text-xs sm:text-sm text-text-medium space-y-2 font-medium">
+          <ul className="text-[11px] sm:text-xs text-text-medium space-y-2.5 font-medium">
             <li>
               <a 
                 href="#hero" 
                 onClick={(e) => handleLinkClick(e, 'cdec', 'hero')}
                 className="hover:text-coral transition-colors"
               >
-                Cloud DevOps Program (CDEC)
+                Cloud DevOps (CDEC)
               </a>
             </li>
             <li>
@@ -141,16 +141,16 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
           </ul>
         </div>
 
-        <div className="col-span-1 sm:col-span-1 md:col-span-4 space-y-3">
-          <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">Data Science & AI Pathway</h4>
-          <ul className="text-xs sm:text-sm text-text-medium space-y-2 font-medium">
+        <div className="col-span-1 sm:col-span-1 md:col-span-3 lg:col-span-3 space-y-3">
+          <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">Data Science Pathway</h4>
+          <ul className="text-[11px] sm:text-xs text-text-medium space-y-2.5 font-medium">
             <li>
               <a 
                 href="#hero" 
                 onClick={(e) => handleLinkClick(e, 'xdsai', 'hero')}
                 className="hover:text-purple transition-colors"
               >
-                Expert in Data Science & AI (XDSAI)
+                Expert in AI (XDSAI)
               </a>
             </li>
             <li>
@@ -172,6 +172,22 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
               </a>
             </li>
           </ul>
+        </div>
+
+        {/* Branches Column */}
+        <div className="col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 space-y-3">
+          <h4 className="text-xs font-extrabold uppercase tracking-wider text-text-dark">Our Campuses</h4>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-[11px] sm:text-xs text-text-medium font-medium">
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (HQ)</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (Hinjewadi)</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Pune (Kharadi)</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Mumbai</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Bangalore</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Hyderabad</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Delhi NCR</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Chennai</span>
+            <span className="flex items-center gap-1.5"><span className="h-1 w-1 bg-coral rounded-full"></span> Kolkata</span>
+          </div>
         </div>
 
       </div>

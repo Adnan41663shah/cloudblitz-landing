@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { CourseType } from '../types';
+import HeroLeadForm from './HeroLeadForm';
 
 interface HeroProps {
   activeCourse: CourseType;
@@ -317,292 +318,35 @@ export default function Hero({
 
           </div>
 
-          {/* RIGHT COLUMN: Interactive Tech Console Workspace (Glow borders, real elements) */}
-          <div className="lg:col-span-6 flex items-center justify-center relative w-full px-2">
-
-            {/* Outer dotted orbit rings for depth */}
-            <div className="absolute inset-0 flex items-center justify-center -z-10 animate-grid-shimmer">
-              <div className="absolute h-[380px] w-[380px] sm:h-[480px] sm:w-[480px] rounded-full border border-dashed border-slate-200" />
-              <div className="absolute h-[280px] w-[280px] sm:h-[360px] sm:w-[360px] rounded-full border border-slate-100" />
-            </div>
-
-            {/* Core Console Container */}
-            <div className={`relative w-full max-w-[480px] rounded-3xl border bg-slate-950 p-4 sm:p-5 shadow-2xl transition-all duration-500 ${activeCourse === 'cdec' ? 'border-coral/20 shadow-glow-coral' : 'border-purple/20 shadow-glow-purple'
-              }`}>
-
-              {/* Console Window Header (IDE/Terminal Look) */}
-              <div className="flex items-center justify-between pb-3.5 border-b border-slate-800/80 mb-4.5">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-500/85" />
-                  <span className="h-3 w-3 rounded-full bg-yellow-500/85" />
-                  <span className="h-3 w-3 rounded-full bg-green-500/85" />
-                </div>
+          {/* RIGHT COLUMN: Interactive Lead Form */}
+          <div className="lg:col-span-6 flex flex-col items-center justify-center relative w-full px-2 gap-4">
+            
+            {/* Quick Info Cards: Duration & Mode of Training */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-[480px]">
+              {/* Duration Card */}
+              <div className="bg-slate-50/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-3 flex flex-col items-center justify-center text-center hover:bg-white transition-colors duration-300 shadow-sm">
+                <span className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Duration</span>
                 <div className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] font-bold text-slate-400 font-mono">
-                    {activeCourse === 'cdec' ? 'cloudblitz-cd-pipeline_running' : 'cloudblitz-ml-weights_converging'}
-                  </span>
+                  <svg className="h-4.5 w-4.5 text-[#2A5C75]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-sm font-black text-slate-800 whitespace-nowrap">6 Months</span>
                 </div>
-                <div className="w-10"></div>
               </div>
 
-              {/* DYNAMIC SCREEN CONTENT */}
-              {activeCourse === 'cdec' ? (
-                /* DevOps Active Console */
-                <div className="space-y-4 font-mono">
-
-                  {/* Live Visual Pipeline Chart */}
-                  <div className="bg-slate-900/60 rounded-2xl p-4.5 border border-slate-800/50">
-                    <span className="block text-[10px] font-black uppercase text-slate-500 tracking-wider mb-3">CI/CD Execution Pipeline</span>
-
-                    <div className="relative flex items-center justify-between gap-1 w-full pt-1.5">
-
-                      {/* Connection Line Behind Nodes */}
-                      <div className="absolute top-[18px] left-4 right-4 h-0.5 bg-slate-800 -z-0">
-                        {/* Glow signal path flowing */}
-                        <div className="h-full bg-coral w-1/3 rounded-full animate-pulse shadow-[0_0_8px_var(--primary-coral)]" />
-                      </div>
-
-                      {/* SVG Flow lines */}
-                      <svg className="absolute inset-0 w-full h-[38px] pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 12 19 L 450 19" fill="none" stroke="var(--primary-coral)" strokeWidth="2.5" className="animate-line-flow" />
-                      </svg>
-
-                      {/* Step 1: Code */}
-                      <div className="relative z-10 flex flex-col items-center gap-1.5">
-                        <div className="h-9 w-9 rounded-full bg-slate-950 border-2 border-emerald-500 text-emerald-500 flex items-center justify-center text-xs shadow-md">
-                          <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                          </svg>
-                        </div>
-                        <span className="text-[9px] font-bold text-emerald-500">CODE</span>
-                      </div>
-
-                      {/* Step 2: Build */}
-                      <div className="relative z-10 flex flex-col items-center gap-1.5">
-                        <div className="h-9 w-9 rounded-full bg-slate-950 border-2 border-emerald-500 text-emerald-500 flex items-center justify-center text-xs shadow-md">
-                          <svg className="h-4.5 w-4.5 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <circle cx="12" cy="12" r="3" />
-                          </svg>
-                        </div>
-                        <span className="text-[9px] font-bold text-emerald-500">BUILD</span>
-                      </div>
-
-                      {/* Step 3: Deploy */}
-                      <div className="relative z-10 flex flex-col items-center gap-1.5">
-                        <div className="h-9 w-9 rounded-full bg-slate-950 border-2 border-coral text-coral flex items-center justify-center text-xs shadow-md animate-pulse-node">
-                          <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                          </svg>
-                        </div>
-                        <span className="text-[9px] font-bold text-coral">DEPLOY</span>
-                      </div>
-
-                      {/* Step 4: Monitor */}
-                      <div className="relative z-10 flex flex-col items-center gap-1.5">
-                        <div className="h-9 w-9 rounded-full bg-slate-950 border-2 border-slate-700 text-slate-500 flex items-center justify-center text-xs shadow-md">
-                          <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z" />
-                          </svg>
-                        </div>
-                        <span className="text-[9px] font-bold text-slate-500">MONITOR</span>
-                      </div>
-
-                    </div>
-                  </div>
-
-                  {/* Terminal Log Console */}
-                  <div className="bg-slate-950 border border-slate-900 rounded-2xl p-4 text-[10px] sm:text-[11px] leading-relaxed text-slate-300 font-mono min-h-[160px] overflow-hidden relative">
-                    <div className="space-y-1">
-                      {devopsLogs.map((log, index) => {
-                        if (!log || typeof log !== 'string') return null;
-                        const isCmd = log.startsWith('$');
-                        const isSuccess = log.startsWith('✓');
-                        let colorClass = 'text-slate-400';
-                        if (isCmd) colorClass = 'text-coral font-bold';
-                        else if (isSuccess) colorClass = 'text-emerald-400 font-semibold';
-
-                        return (
-                          <div key={index} className={`${colorClass} truncate transition-opacity duration-300`}>
-                            {log}
-                          </div>
-                        );
-                      })}
-
-                      {/* Active Cursor Blinking line */}
-                      <div className="inline-block w-2.5 h-3.5 bg-coral animate-cursor-coral ml-0.5 align-middle" />
-                    </div>
-                  </div>
+              {/* Mode of Training Card */}
+              <div className="bg-slate-50/90 backdrop-blur-sm border border-slate-200/50 rounded-2xl p-3 flex flex-col items-center justify-center text-center hover:bg-white transition-colors duration-300 shadow-sm">
+                <span className="block text-xs font-bold text-slate-500 mb-1.5 uppercase tracking-wider">Training Mode</span>
+                <div className="flex items-center gap-1.5">
+                  <svg className="h-5 w-5 text-[#2A5C75]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <span className="text-[13px] font-black text-slate-800 leading-tight">Classroom & Online</span>
                 </div>
-              ) : (
-                /* Data Science & AI Active Console */
-                <div className="space-y-4 font-mono">
-
-                  {/* Visual Neural Net Node Network and Circular Progress side-by-side */}
-                  <div className="grid grid-cols-12 gap-3.5">
-
-                    {/* Visual Neural Net Illustration */}
-                    <div className="col-span-7 bg-slate-900/60 rounded-2xl p-3 border border-slate-800/50 flex flex-col justify-center min-h-[110px]">
-                      <span className="block text-[9px] font-black uppercase text-slate-500 tracking-wider mb-2">Deep Tensor Net</span>
-
-                      <div className="relative h-18 w-full flex items-center justify-between px-2">
-
-                        {/* Connected lines SVG */}
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                          {/* Lines from left to mid */}
-                          <line x1="16" y1="12" x2="60" y2="12" stroke="rgba(143, 47, 226, 0.4)" strokeWidth="1.5" />
-                          <line x1="16" y1="12" x2="60" y2="36" stroke="rgba(143, 47, 226, 0.4)" strokeWidth="1.5" />
-                          <line x1="16" y1="56" x2="60" y2="12" stroke="rgba(143, 47, 226, 0.4)" strokeWidth="1.5" />
-                          <line x1="16" y1="56" x2="60" y2="56" stroke="rgba(143, 47, 226, 0.4)" strokeWidth="1.5" />
-
-                          {/* Lines from mid to right */}
-                          <line x1="60" y1="12" x2="110" y2="36" stroke="rgba(143, 47, 226, 0.8)" strokeWidth="2" className="animate-line-flow" />
-                          <line x1="60" y1="36" x2="110" y2="36" stroke="rgba(143, 47, 226, 0.8)" strokeWidth="2" />
-                          <line x1="60" y1="56" x2="110" y2="36" stroke="rgba(143, 47, 226, 0.8)" strokeWidth="2" />
-                        </svg>
-
-                        {/* Input Layer */}
-                        <div className="flex flex-col justify-between h-full py-1 z-10">
-                          <span className="h-2.5 w-2.5 rounded-full bg-slate-700 animate-pulse-node" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-                        </div>
-
-                        {/* Hidden Layer (Active neural weights pulsing) */}
-                        <div className="flex flex-col justify-between h-full z-10">
-                          <span className="h-3 w-3 rounded-full bg-purple shadow-[0_0_6px_var(--primary-purple)] animate-pulse-node" />
-                          <span className="h-3 w-3 rounded-full bg-purple shadow-[0_0_6px_var(--primary-purple)] animate-pulse" />
-                          <span className="h-3 w-3 rounded-full bg-purple shadow-[0_0_6px_var(--primary-purple)] animate-pulse-node" />
-                        </div>
-
-                        {/* Output Prediction Node */}
-                        <div className="flex flex-col justify-center h-full z-10 pr-2">
-                          <span className="h-4.5 w-4.5 rounded-full bg-emerald-500 border border-white/20 shadow-[0_0_8px_rgba(16,185,129,0.8)] flex items-center justify-center text-[8px] text-white font-bold animate-pulse">
-                            Y
-                          </span>
-                        </div>
-
-                      </div>
-                    </div>
-
-                    {/* Glowing Metric Radial Dashboard */}
-                    <div className="col-span-5 bg-slate-900/60 rounded-2xl p-3 border border-slate-800/50 flex flex-col items-center justify-center text-center">
-                      <span className="block text-[9px] font-black uppercase text-slate-500 tracking-wider mb-1.5">Model Accuracy</span>
-
-                      <div className="relative h-16 w-16 flex items-center justify-center">
-                        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                          <path
-                            className="text-slate-800"
-                            strokeWidth="2.5"
-                            stroke="currentColor"
-                            fill="none"
-                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                          <path
-                            className="text-purple transition-all duration-1000 ease-out"
-                            strokeDasharray={`${accuracyValue}, 100`}
-                            strokeWidth="3"
-                            strokeLinecap="round"
-                            stroke="currentColor"
-                            fill="none"
-                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                          />
-                        </svg>
-                        <div className="absolute flex flex-col justify-center items-center">
-                          <span className="text-xs font-black text-white">{accuracyValue}%</span>
-                          <span className="text-[7px] text-slate-400 font-bold">Accuracy</span>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* AI Terminal Log Output */}
-                  <div className="bg-slate-950 border border-slate-900 rounded-2xl p-4 text-[10px] sm:text-[11px] leading-relaxed text-slate-300 font-mono min-h-[160px] overflow-hidden relative">
-                    <div className="space-y-1">
-                      {dsLogs.map((log, index) => {
-                        if (!log || typeof log !== 'string') return null;
-                        const isCmd = log.startsWith('$');
-                        const isSuccess = log.startsWith('✓');
-                        let colorClass = 'text-slate-400';
-                        if (isCmd) colorClass = 'text-purple font-bold';
-                        else if (isSuccess) colorClass = 'text-emerald-400 font-semibold';
-
-                        return (
-                          <div key={index} className={`${colorClass} truncate transition-opacity duration-300`}>
-                            {log}
-                          </div>
-                        );
-                      })}
-
-                      {/* Active Cursor Blinking line */}
-                      <div className="inline-block w-2.5 h-3.5 bg-purple animate-cursor-purple ml-0.5 align-middle" />
-                    </div>
-                  </div>
-
-                </div>
-              )}
-
-              {/* Dynamic FLOATING Badges around Workspace */}
-              {activeCourse === 'cdec' ? (
-                /* Cloud DevOps Floating Badges */
-                <>
-                  {/* Badge 1: Docker */}
-                  <div className="absolute top-[40px] left-[-35px] z-20 animate-float-1 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">Docker</span>
-                    </div>
-                  </div>
-
-                  {/* Badge 2: Kubernetes */}
-                  <div className="absolute bottom-[80px] right-[-45px] z-20 animate-float-2 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3.5 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">Kubernetes</span>
-                    </div>
-                  </div>
-
-                  {/* Badge 3: Terraform */}
-                  <div className="absolute top-[160px] right-[-40px] z-20 animate-float-1 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-indigo-500 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">Terraform</span>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* Data Science & AI Floating Badges */
-                <>
-                  {/* Badge 1: Python */}
-                  <div className="absolute top-[40px] left-[-35px] z-20 animate-float-1 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">Python</span>
-                    </div>
-                  </div>
-
-                  {/* Badge 2: PyTorch */}
-                  <div className="absolute bottom-[80px] right-[-40px] z-20 animate-float-2 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3.5 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">PyTorch</span>
-                    </div>
-                  </div>
-
-                  {/* Badge 3: Power BI */}
-                  <div className="absolute top-[160px] right-[-45px] z-20 animate-float-1 hidden md:block">
-                    <div className="bg-slate-900 border border-slate-800 rounded-2xl px-3 py-2 flex items-center gap-1.5 shadow-xl text-white">
-                      <span className="h-2 w-2 rounded-full bg-yellow-500 animate-pulse" />
-                      <span className="text-[10px] font-bold font-mono">Power BI</span>
-                    </div>
-                  </div>
-                </>
-              )}
-
+              </div>
             </div>
 
+            <HeroLeadForm activeCourse={activeCourse} />
           </div>
 
         </div>

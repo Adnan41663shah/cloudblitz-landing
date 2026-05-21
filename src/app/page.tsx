@@ -30,9 +30,9 @@ export default function Home() {
     promoTimeHours: 5,
     promoTimeMinutes: 42,
     promoTimeSeconds: 19,
-    heroCDECBatchDate: "MAY 28, 2026 @ 8:00 PM IST",
+    heroCDECBatchDate: "MAY 28, 2026 | 8:00 PM IST",
     heroCDECSeats: "04 / 20",
-    heroXDSAIBatchDate: "MAY 28, 2026 @ 8:00 PM IST",
+    heroXDSAIBatchDate: "MAY 28, 2026 | 8:00 PM IST",
     heroXDSAISeats: "06 / 20",
     faqs: []
   });

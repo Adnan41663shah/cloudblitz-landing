@@ -252,18 +252,7 @@ export default function Header({
                 <span>Chat on WhatsApp</span>
               </a>
 
-              {/* Consultation Lead Magnet Button directly in nav */}
-              <button
-                onClick={() => openModal(activeCourse, 'consultation')}
-                className="relative flex items-center justify-center gap-2 rounded-full bg-gradient-brand hover:opacity-95 px-5.5 h-11 text-xs font-black text-white transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-coral/20 hover:-translate-y-0.5 active:scale-95 cursor-pointer overflow-hidden group"
-              >
-                {/* Shimmer light effect */}
-                <div className="absolute inset-0 w-1/2 bg-white/20 blur-md skew-x-12 translate-x-[-150%] group-hover:translate-x-[250%] transition-transform duration-1000 ease-out pointer-events-none" />
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>Free Consultation</span>
-              </button>
+
             </div>
 
             {/* Mobile Menu Actions */}

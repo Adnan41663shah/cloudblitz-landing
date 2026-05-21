@@ -6,9 +6,9 @@ const defaultContent = {
   promoTimeHours: 5,
   promoTimeMinutes: 42,
   promoTimeSeconds: 19,
-  heroCDECBatchDate: "MAY 28, 2026 @ 8:00 PM IST",
+  heroCDECBatchDate: "MAY 28, 2026 | 8:00 PM IST",
   heroCDECSeats: "04 / 20",
-  heroXDSAIBatchDate: "MAY 28, 2026 @ 8:00 PM IST",
+  heroXDSAIBatchDate: "MAY 28, 2026 | 8:00 PM IST",
   heroXDSAISeats: "06 / 20",
   faqs: [
     {
@@ -62,7 +62,7 @@ export async function GET() {
     }
 
     const client = await clientPromise;
-    const db = client.db('cloudblitz_landing');
+    const db = client.db();
     const content = await db.collection('site_content').findOne({ key: 'landing_page' });
 
     if (content) {
@@ -130,7 +130,7 @@ export async function PUT(request: NextRequest) {
 
     const body = await request.json();
     const client = await clientPromise;
-    const db = client.db('cloudblitz_landing');
+    const db = client.db();
 
     // Clean and validate keys to prevent saving mongo structural issues
     const { _id, key, ...cleanBody } = body;
