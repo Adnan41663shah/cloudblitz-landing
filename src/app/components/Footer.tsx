@@ -103,7 +103,8 @@ export default function Footer({ setActiveCourse, openModal }: FooterProps) {
           </p>
           <div className="text-xs text-text-muted space-y-1">
             <p>📍 2nd Floor, Dev heights, Lane Ring Road, above Carat, Pratap Nagar Square, Tatya Tope Nagar, Pratap Nagar, Nagpur, Maharashtra 440022</p>
-            <p>✉ Email Support: admissions@cloudblitz.in</p>
+            <p>✉ Email : <a href="mailto:support@cloudblitz.in">support@cloudblitz.in</a> </p>
+            <p>📞 Phone: +91 98348 87259</p>
           </div>
         </div>
 

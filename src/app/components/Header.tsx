@@ -237,10 +237,10 @@ export default function Header({
             {/* Desktop Right side CTA Buttons (High Converting Combo) */}
             <div className="hidden lg:flex items-center gap-3.5">
               <a
-                href="https://wa.me/919999999999?text=Hi%20Cloudblitz,%20I%20am%20interested%20in%20learning%20more%20about%20your%20courses."
+                href="https://wa.me/919834887259?text=Hi!%20I'm%20interested%20in%20learning%20more%20about%20CloudBlitz%20courses.%20Can%20you%20help%20me?"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden xl:flex items-center justify-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-50/40 hover:bg-emerald-50/80 px-4.5 h-11 text-xs font-black text-emerald-600 transition-all duration-300 shadow-sm backdrop-blur-md active:scale-95 hover:-translate-y-0.5 cursor-pointer hover:shadow-emerald-500/5"
+                className="flex items-center justify-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-50/40 hover:bg-emerald-50/80 px-4.5 h-11 text-xs font-black text-emerald-600 transition-all duration-300 shadow-sm backdrop-blur-md active:scale-95 hover:-translate-y-0.5 cursor-pointer hover:shadow-emerald-500/5"
               >
                 <Image
                   src={whatsappIcon}
@@ -249,7 +249,7 @@ export default function Header({
                   height={18}
                   className="h-4.5 w-4.5 object-contain"
                 />
-                <span>Chat on WhatsApp</span>
+                <span>WhatsApp</span>
               </a>
 
 
@@ -258,7 +258,7 @@ export default function Header({
             {/* Mobile Menu Actions */}
             <div className="flex lg:hidden items-center gap-2.5">
               <a
-                href="https://wa.me/919999999999?text=Hi%20Cloudblitz,%20I%20am%20interested%20in%20learning%20more%20about%20your%20courses."
+                href="https://wa.me/919834887259?text=Hi!%20I'm%20interested%20in%20learning%20more%20about%20CloudBlitz%20courses.%20Can%20you%20help%20me?"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-500/15 bg-emerald-50/30 hover:bg-emerald-50/60 transition-all active:scale-95 shadow-sm backdrop-blur-md"
@@ -272,17 +272,6 @@ export default function Header({
                   className="h-5 w-5 object-contain"
                 />
               </a>
-
-              {/* Instant callback button for mobile conversions */}
-              <button
-                onClick={() => openModal(activeCourse, 'quick')}
-                className="flex h-10 px-3.5 items-center justify-center rounded-xl bg-gradient-brand text-white font-extrabold text-[10px] uppercase shadow-sm active:scale-95 transition-all gap-1.5"
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>Call Me</span>
-              </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

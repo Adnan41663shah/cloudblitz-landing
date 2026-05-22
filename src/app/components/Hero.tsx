@@ -3,6 +3,30 @@
 import React, { useState, useEffect } from 'react';
 import { CourseType } from '../types';
 import HeroLeadForm from './HeroLeadForm';
+import { SiAccenture, SiTata, SiNetflix, SiIntel, SiCisco, SiDell, SiHp, SiSamsung, SiSony } from "react-icons/si";
+import { FaGoogle, FaMicrosoft, FaAmazon, FaAws, FaApple, FaFacebook, FaSpotify } from "react-icons/fa";
+
+const row1Logos = [
+  { Icon: FaGoogle, name: 'Google' },
+  { Icon: FaMicrosoft, name: 'Microsoft' },
+  { Icon: FaAmazon, name: 'Amazon' },
+  { Icon: SiAccenture, name: 'Accenture' },
+  { Icon: SiTata, name: 'Tata Consultancy Services' },
+  { Icon: FaAws, name: 'Amazon Web Services' },
+  { Icon: FaApple, name: 'Apple' },
+  { Icon: FaFacebook, name: 'Meta' },
+];
+
+const row2Logos = [
+  { Icon: FaSpotify, name: 'Spotify' },
+  { Icon: SiNetflix, name: 'Netflix' },
+  { Icon: SiIntel, name: 'Intel' },
+  { Icon: SiCisco, name: 'Cisco' },
+  { Icon: SiDell, name: 'Dell' },
+  { Icon: SiHp, name: 'Hewlett-Packard' },
+  { Icon: SiSamsung, name: 'Samsung' },
+  { Icon: SiSony, name: 'Sony' },
+];
 
 interface HeroProps {
   activeCourse: CourseType;
@@ -177,21 +201,17 @@ export default function Hero({
               {activeCourse === 'cdec' ? (
                 <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-black tracking-[-0.02em] text-text-dark leading-[1.08]">
                   Become a{' '}
-                  <span className="relative inline-block">
+                  <span className="relative">
                     <span className="text-coral font-black">Production-Ready</span>
-                    <span className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-coral to-orange-400 opacity-60" />
                   </span>{' '}
-                  <br className="hidden sm:inline" />
                   Cloud DevOps Engineer.
                 </h1>
               ) : (
                 <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-[-0.02em] text-text-dark leading-[1.08]">
                   Become an{' '}
-                  <span className="relative inline-block">
+                  <span className="relative">
                     <span className="text-purple font-black">Industry-Ready</span>
-                    <span className="absolute -bottom-1 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-purple to-pink-400 opacity-60" />
                   </span>{' '}
-                  <br className="hidden sm:inline" />
                   Data Scientist &amp; AI Expert.
                 </h1>
               )}
@@ -281,7 +301,7 @@ export default function Hero({
             </div>
 
             {/* High-Converting CTA Widget */}
-            <div className="w-full flex flex-col sm:flex-row gap-4 pt-2">
+            <div className="w-full flex flex-col sm:flex-row flex-wrap gap-4 pt-2">
 
               {/* Primary Pulsing CTA */}
               <button
@@ -425,63 +445,38 @@ export default function Hero({
           </span>
 
           {/* Infinite Moving Logo Cloud */}
-          <div className="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-bg-main before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-bg-main after:to-transparent">
+          <div className="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-bg-main before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-bg-main after:to-transparent flex flex-col gap-6 py-4">
 
-            <div className="animate-scroll-left hover:pause-scroll-on-hover py-3 flex items-center gap-14 sm:gap-20">
-
-              {/* Duplicate set of SVG monochrome logos for continuous loop */}
+            {/* Row 1: Moving Left */}
+            <div className="animate-scroll-left hover:pause-scroll-on-hover flex items-center gap-14 sm:gap-20 w-max pt-4">
               {[1, 2].map((loop) => (
                 <React.Fragment key={loop}>
-
-                  {/* Google — clean wordmark SVG */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0">
-                    <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 74 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M9.24 8.19v2.46h5.88c-.18 1.38-.64 2.39-1.34 3.1-.86.86-2.2 1.8-4.54 1.8-3.62 0-6.45-2.92-6.45-6.54s2.83-6.54 6.45-6.54c1.95 0 3.38.77 4.43 1.76L15.4 2.5C13.94 1.08 11.98 0 9.24 0 4.28 0 .11 4.04.11 9s4.17 9 9.13 9c2.68 0 4.7-.88 6.28-2.52 1.62-1.62 2.13-3.91 2.13-5.75 0-.57-.04-1.1-.13-1.54H9.24zm17.96-.07c-3.04 0-5.52 2.31-5.52 5.5 0 3.16 2.48 5.5 5.52 5.5s5.52-2.34 5.52-5.5c0-3.19-2.48-5.5-5.52-5.5zm0 8.83c-1.67 0-3.11-1.38-3.11-3.33 0-1.97 1.44-3.33 3.11-3.33s3.11 1.36 3.11 3.33c0 1.95-1.44 3.33-3.11 3.33zm12.04-8.83c-3.04 0-5.52 2.31-5.52 5.5 0 3.16 2.48 5.5 5.52 5.5s5.52-2.34 5.52-5.5c0-3.19-2.48-5.5-5.52-5.5zm0 8.83c-1.67 0-3.11-1.38-3.11-3.33 0-1.97 1.44-3.33 3.11-3.33s3.11 1.36 3.11 3.33c0 1.95-1.44 3.33-3.11 3.33zm11.68-8.44v.87h-.09c-.58-.69-1.69-1.32-3.09-1.32-2.93 0-5.61 2.57-5.61 5.52 0 2.93 2.68 5.48 5.61 5.48 1.4 0 2.51-.63 3.09-1.34h.09v.85c0 2.11-1.13 3.24-2.95 3.24-1.49 0-2.41-1.07-2.79-1.97l-2.12.88c.61 1.47 2.22 3.27 4.91 3.27 2.85 0 5.27-1.68 5.27-5.77V8.51h-2.32zm-2.95 8.44c-1.67 0-2.86-1.4-2.86-3.33 0-1.95 1.19-3.33 2.86-3.33 1.64 0 2.95 1.4 2.95 3.35 0 1.93-1.31 3.31-2.95 3.31zm7.63-16.5h2.41v18h-2.41V.45zm9.32 14.22l1.87-1.26c.52.82 1.26 1.38 2.57 1.38 1.13 0 1.73-.56 1.73-1.33 0-.92-.7-1.25-1.88-1.78l-.65-.28c-1.87-.8-3.11-1.8-3.11-3.91 0-1.95 1.49-3.44 3.8-3.44 1.65 0 2.84.58 3.69 2.09l-1.8 1.15c-.44-.79-1.02-1.1-1.88-1.1-.86 0-1.4.54-1.4 1.24 0 .87.54 1.22 1.78 1.75l.65.28c2.2.94 3.44 1.9 3.44 4.06 0 2.32-1.82 3.62-4.27 3.62-2.39 0-3.94-1.14-4.54-2.47z" />
-                    </svg>
-                  </div>
-
-                  {/* Microsoft */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0 flex items-center gap-2">
-                    <svg className="h-5 sm:h-6 w-auto" viewBox="0 0 23 23" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="11" height="11" />
-                      <rect x="12" width="11" height="11" />
-                      <rect y="12" width="11" height="11" />
-                      <rect x="12" y="12" width="11" height="11" />
-                    </svg>
-                    <span className="font-sans font-black tracking-tight text-base sm:text-lg">Microsoft</span>
-                  </div>
-
-                  {/* Amazon */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0 flex flex-col items-center justify-center leading-none">
-                    <span className="font-sans font-black tracking-tighter text-sm sm:text-base">amazon</span>
-                    <svg className="h-2 w-14 sm:w-16" viewBox="0 0 78 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.5 12.5 C10 16, 25 17.5, 45 13.5 C60 10.5, 71 4.5, 75 1.5 C77 0.5, 75.5 -1, 74 0 C67.5 4, 53.5 10.5, 34 11 C18 11.5, 6.5 7, 2 5.5 C1.2 5.3, 0.5 6, 0.8 6.8 C1.1 7.5, 1.2 8, 1.5 12.5 Z" fill="currentColor" />
-                    </svg>
-                  </div>
-
-                  {/* Accenture */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0 flex items-center gap-1">
-                    <span className="font-sans font-black tracking-tight text-sm sm:text-base">accenture</span>
-                    <span className="text-coral font-black text-base sm:text-lg">{`>`}</span>
-                  </div>
-
-                  {/* TCS */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0">
-                    <span className="font-sans font-black tracking-widest text-sm sm:text-base uppercase">tata consultancy services</span>
-                  </div>
-
-                  {/* AWS — clean full wordmark SVG */}
-                  <div className="text-slate-400 hover:text-slate-900 transition-colors shrink-0">
-                    <svg className="h-6 sm:h-7 w-auto" viewBox="0 0 60 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                      {/* "AWS" full wordmark — 3 letter-paths: A, W, S */}
-                      <path d="M10.01 6.48 6.44 17.52H8.9l.84-2.72h3.78l.84 2.72h2.46L12.57 6.48h-2.56zm-.47 6.48 1.26-4.03h.08l1.23 4.03H9.54zM23.08 6.48l-2.04 8.11h-.06l-2.06-8.11H16.2l2.99 11.04h2.46l2.05-8.32h.07l2.05 8.32h2.46l3-11.04h-2.72l-2.06 8.11h-.06l-2.05-8.11h-2.31zM36.59 11.56c-.38-.18-1.02-.36-1.91-.54-.81-.17-1.35-.34-1.61-.52-.26-.17-.39-.41-.39-.71 0-.29.12-.53.36-.71.24-.18.59-.27 1.06-.27.5 0 .9.11 1.19.33.29.22.46.52.51.91h2.33c-.07-.93-.43-1.67-1.08-2.2-.65-.54-1.54-.81-2.66-.81-1.13 0-2.02.28-2.67.83-.65.55-.97 1.26-.97 2.13 0 .7.2 1.26.6 1.68.4.42 1.07.75 2.01.99.47.12.84.22 1.11.31.27.09.49.2.66.34.17.14.26.33.26.57 0 .32-.14.58-.41.77-.27.19-.66.29-1.17.29-.55 0-.99-.13-1.3-.38-.31-.25-.5-.61-.56-1.06H29.6c.07 1 .46 1.77 1.15 2.32.69.54 1.63.81 2.82.81 1.2 0 2.14-.29 2.82-.87.68-.58 1.02-1.34 1.02-2.28 0-.73-.21-1.33-.62-1.79-.14-.17-.12-.18-.2-.22v.02z" />
-                    </svg>
-                  </div>
-
+                  {row1Logos.map((logo, index) => (
+                    <div key={`${loop}-${index}`} className="group relative text-slate-400 hover:text-slate-900 transition-colors opacity-70 hover:opacity-100 shrink-0 flex justify-center cursor-pointer">
+                      <logo.Icon className="w-8 h-8 sm:w-10 sm:h-10" />
+                      <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-100 text-[10px] sm:text-xs font-black text-slate-800 z-50 translate-y-2 group-hover:translate-y-0">
+                        {logo.name}
+                      </div>
+                    </div>
+                  ))}
                 </React.Fragment>
-
               ))}
+            </div>
 
+            {/* Row 2: Moving Right */}
+            <div className="animate-scroll-right hover:pause-scroll-on-hover flex items-center gap-14 sm:gap-20 w-max pb-4">
+              {[1, 2].map((loop) => (
+                <React.Fragment key={loop}>
+                  {row2Logos.map((logo, index) => (
+                    <div key={`${loop}-${index}`} className="group relative text-slate-400 hover:text-slate-900 transition-colors opacity-70 hover:opacity-100 shrink-0 flex justify-center cursor-pointer">
+                      <logo.Icon className="w-8 h-8 sm:w-10 sm:h-10" />
+                      <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-100 text-[10px] sm:text-xs font-black text-slate-800 z-50 translate-y-2 group-hover:translate-y-0">
+                        {logo.name}
+                      </div>
+                    </div>
+                  ))}
+                </React.Fragment>
+              ))}
             </div>
 
           </div>

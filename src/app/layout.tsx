@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
@@ -18,20 +18,36 @@ const outfit = Outfit({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0f172a", // Match your slate-900 background or brand color
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true, // Accessibility best practice, while still allowing scale
+};
+
 export const metadata: Metadata = {
   title: "CLOUDBLITZ | Master Cloud DevOps (CDEC) & Data Science & AI (X-DSAAI)",
   description: "Propel your career with Cloudblitz's elite, live-interactive tech cohorts. Master Kubernetes, AWS and CI/CD pipelines (CDEC) or Deep Learning, Generative AI and analytics dashboarding (X-DSAAI). Assured corporate placements.",
   keywords: [
     "Cloud DevOps Course",
-    "DevOps Engineering",
+    "DevOps Engineering Training",
     "Data Science and AI Course",
-    "AWS training",
-    "Kubernetes certification",
-    "Generative AI training",
-    "Machine Learning bootcamp",
-    "Cloudblitz admissions",
-    "CDEC course details",
-    "X-DSAAI program syllabus"
+    "AWS Certification Training",
+    "Kubernetes Certification",
+    "Generative AI Training",
+    "Machine Learning Bootcamp",
+    "Cloudblitz Admissions",
+    "CDEC Course Details",
+    "X-DSAAI Program Syllabus",
+    "Best Data Science Course in Pune",
+    "Best Data Science Course in Nagpur",
+    "IT Placements India",
+    "Learn Python for Data Science",
+    "Cloud Computing Courses online",
+    "Azure DevOps Training",
+    "Terraform CI/CD Pipeline Course",
+    "Learn PyTorch and TensorFlow"
   ],
   authors: [{ name: "CLOUDBLITZ Academic Team", url: "https://cloudblitz.in" }],
   openGraph: {
@@ -51,6 +67,14 @@ export const metadata: Metadata = {
     icon: "/cloudblitz-logo.png",
     shortcut: "/cloudblitz-logo.png",
     apple: "/cloudblitz-logo.png",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Cloudblitz",
+    statusBarStyle: "black-translucent",
+  },
+  formatDetection: {
+    telephone: true, // Allows Apple devices to format phone numbers as clickable links
   },
 };
 
