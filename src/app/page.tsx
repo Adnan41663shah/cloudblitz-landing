@@ -244,80 +244,86 @@ export default function Home() {
 
       {/* Premium Floating Side Panel (Middle-Right) */}
       <div className="fixed right-3 md:right-5 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center">
-        <div className="bg-white/80 backdrop-blur-xl border border-slate-200/50 p-1.5 md:p-2 rounded-full shadow-2xl flex flex-col gap-2.5 md:gap-3 py-3.5 md:py-4 transition-all duration-300 hover:shadow-slate-400/15">
+        <div className="bg-white/80 backdrop-blur-xl border border-slate-200/50 p-1.5 md:p-2 rounded-full shadow-2xl flex flex-col gap-2.5 md:gap-3 py-3.5 md:py-4 transition-all duration-300 hover:shadow-slate-400/15 hover-pause-group">
 
           {/* 1. WhatsApp Action */}
-          <a
-            href="https://wa.me/919834887259?text=Hi!%20I'm%20interested%20in%20learning%20more%20about%20CloudBlitz%20courses.%20Can%20you%20help%20me?"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white hover:bg-emerald-50/20 border border-emerald-500/20 shadow-md shadow-slate-200/50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            aria-label="Chat on WhatsApp"
-          >
-            <span className="absolute top-[-1px] right-[-1px] flex h-3 w-3 items-center justify-center z-10">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
-            </span>
-            <Image
-              src={whatsappIcon}
-              alt="WhatsApp"
-              width={24}
-              height={24}
-              className="w-5 h-5 md:w-6 md:h-6 object-contain"
-            />
+          <div className="animate-wave-1">
+            <a
+              href="https://wa.me/919834887259?text=Hi!%20I'm%20interested%20in%20learning%20more%20about%20CloudBlitz%20courses.%20Can%20you%20help%20me?"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white hover:bg-emerald-50/20 border border-emerald-500/20 shadow-md shadow-slate-200/50 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              aria-label="Chat on WhatsApp"
+            >
+              <span className="absolute top-[-1px] right-[-1px] flex h-3 w-3 items-center justify-center z-10">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+              </span>
+              <Image
+                src={whatsappIcon}
+                alt="WhatsApp"
+                width={24}
+                height={24}
+                className="w-5 h-5 md:w-6 md:h-6 object-contain"
+              />
 
-            {/* Elegant Tooltip */}
-            <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
-              Chat on WhatsApp
-            </span>
-          </a>
+              {/* Elegant Tooltip */}
+              <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
+                Chat on WhatsApp
+              </span>
+            </a>
+          </div>
 
           {/* 2. Free Consultation Action */}
-          <button
-            onClick={() => openModalWithCourse(activeCourse, 'consultation')}
-            className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-gradient-to-br from-coral to-purple text-white shadow-md shadow-coral/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            aria-label="Book Free Consultation"
-          >
-            <svg className="h-5 w-5 md:h-5.5 md:w-5.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.3}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
+          <div className="animate-wave-2">
+            <button
+              onClick={() => openModalWithCourse(activeCourse, 'consultation')}
+              className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-gradient-to-br from-coral to-purple text-white shadow-md shadow-coral/15 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              aria-label="Book Free Consultation"
+            >
+              <svg className="h-5 w-5 md:h-5.5 md:w-5.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
 
-            {/* Elegant Tooltip */}
-            <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
-              Book Free Consultation
-            </span>
-          </button>
+              {/* Elegant Tooltip */}
+              <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
+                Book Free Consultation
+              </span>
+            </button>
+          </div>
 
           {/* 3. Fast Stream Switcher Dashboard grid button */}
-          <button
-            onClick={() => {
-              const nextCourse = activeCourse === 'cdec' ? 'X-DSAAI' : 'cdec';
-              setActiveCourse(nextCourse);
-              const element = document.getElementById('hero');
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-700 hover:text-slate-900 shadow-md shadow-slate-100 hover:shadow-slate-200/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
-            aria-label="Switch Curriculum Track"
-          >
-            <svg className="h-5 w-5 md:h-5.5 md:w-5.5 text-slate-600 group-hover:text-slate-800" fill="currentColor" viewBox="0 0 24 24">
-              <rect x="3" y="3" width="4" height="4" rx="1" />
-              <rect x="10" y="3" width="4" height="4" rx="1" />
-              <rect x="17" y="3" width="4" height="4" rx="1" />
-              <rect x="3" y="10" width="4" height="4" rx="1" />
-              <rect x="10" y="10" width="4" height="4" rx="1" />
-              <rect x="17" y="10" width="4" height="4" rx="1" />
-              <rect x="3" y="17" width="4" height="4" rx="1" />
-              <rect x="10" y="17" width="4" height="4" rx="1" />
-              <rect x="17" y="17" width="4" height="4" rx="1" />
-            </svg>
+          <div className="animate-wave-3">
+            <button
+              onClick={() => {
+                const nextCourse = activeCourse === 'cdec' ? 'X-DSAAI' : 'cdec';
+                setActiveCourse(nextCourse);
+                const element = document.getElementById('hero');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+              className="group relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-white hover:bg-slate-50 border border-slate-200/80 text-slate-700 hover:text-slate-900 shadow-md shadow-slate-100 hover:shadow-slate-200/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              aria-label="Switch Curriculum Track"
+            >
+              <svg className="h-5 w-5 md:h-5.5 md:w-5.5 text-slate-600 group-hover:text-slate-800" fill="currentColor" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="4" height="4" rx="1" />
+                <rect x="10" y="3" width="4" height="4" rx="1" />
+                <rect x="17" y="3" width="4" height="4" rx="1" />
+                <rect x="3" y="10" width="4" height="4" rx="1" />
+                <rect x="10" y="10" width="4" height="4" rx="1" />
+                <rect x="17" y="10" width="4" height="4" rx="1" />
+                <rect x="3" y="17" width="4" height="4" rx="1" />
+                <rect x="10" y="17" width="4" height="4" rx="1" />
+                <rect x="17" y="17" width="4" height="4" rx="1" />
+              </svg>
 
-            {/* Elegant Tooltip */}
-            <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
-              Switch to {activeCourse === 'cdec' ? 'Data Science' : 'Cloud DevOps'}
-            </span>
-          </button>
+              {/* Elegant Tooltip */}
+              <span className="group-hover:opacity-100 group-hover:-translate-x-2 opacity-0 pointer-events-none absolute right-full mr-3.5 top-1/2 -translate-y-1/2 px-2.5 py-1 text-[11px] font-bold text-white bg-slate-900/90 backdrop-blur-md rounded-lg shadow-lg whitespace-nowrap transition-all duration-300 transform scale-95 origin-right group-hover:scale-100 z-50">
+                Switch to {activeCourse === 'cdec' ? 'Data Science' : 'Cloud DevOps'}
+              </span>
+            </button>
+          </div>
 
         </div>
       </div>

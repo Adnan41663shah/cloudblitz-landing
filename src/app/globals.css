@@ -371,6 +371,37 @@ body {
   animation: grid-shimmer 8s ease-in-out infinite;
 }
 
+/* Floating Action Panel wave animation */
+@keyframes wave-vertical {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-wave-1 {
+  animation: wave-vertical 3s ease-in-out infinite;
+}
+
+.animate-wave-2 {
+  animation: wave-vertical 3s ease-in-out infinite;
+  animation-delay: 0.25s;
+}
+
+.animate-wave-3 {
+  animation: wave-vertical 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* Pause wave vertical animations on hover */
+.hover-pause-group:hover .animate-wave-1,
+.hover-pause-group:hover .animate-wave-2,
+.hover-pause-group:hover .animate-wave-3 {
+  animation-play-state: paused;
+}
+
 /* Force standard cursor-pointer on all buttons, selectors, links and interactive triggers globally */
 button,
 a,

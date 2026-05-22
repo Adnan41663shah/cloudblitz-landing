@@ -208,7 +208,7 @@ export default function Header({
                     : 'border-transparent text-text-medium hover:text-coral hover:bg-coral/5'
                     }`}
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'cdec'
+                  <span className={`h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300 ${activeCourse === 'cdec'
                     ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                     : 'bg-coral'
                     }`} />
@@ -225,7 +225,7 @@ export default function Header({
                     : 'border-transparent text-text-medium hover:text-purple hover:bg-purple/5'
                     }`}
                 >
-                  <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'X-DSAAI'
+                  <span className={`h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300 ${activeCourse === 'X-DSAAI'
                     ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                     : 'bg-purple'
                     }`} />
@@ -297,18 +297,18 @@ export default function Header({
             <div className="text-[9px] font-black text-text-muted uppercase tracking-widest px-2.5 pt-1.5 pb-0.5">
               Select Active Curriculum Stream
             </div>
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-1 min-[380px]:grid-cols-2 gap-1.5">
               <button
                 onClick={() => {
                   setActiveCourse('cdec');
                   scrollToSection('hero');
                 }}
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'cdec'
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'cdec'
                   ? 'bg-coral border-coral text-white shadow-md shadow-coral/15'
                   : 'border-slate-200/60 text-text-medium hover:text-coral bg-white hover:bg-coral/5'
                   }`}
               >
-                <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'cdec'
+                <span className={`h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300 ${activeCourse === 'cdec'
                   ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                   : 'bg-coral'
                   }`} />
@@ -320,12 +320,12 @@ export default function Header({
                   setActiveCourse('X-DSAAI');
                   scrollToSection('hero');
                 }}
-                className={`flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'X-DSAAI'
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'X-DSAAI'
                   ? 'bg-purple border-purple text-white shadow-md shadow-purple/15'
                   : 'border-slate-200/60 text-text-medium hover:text-purple bg-white hover:bg-purple/5'
                   }`}
               >
-                <span className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${activeCourse === 'X-DSAAI'
+                <span className={`h-1.5 w-1.5 rounded-full shrink-0 transition-all duration-300 ${activeCourse === 'X-DSAAI'
                   ? 'bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-pulse'
                   : 'bg-purple'
                   }`} />
