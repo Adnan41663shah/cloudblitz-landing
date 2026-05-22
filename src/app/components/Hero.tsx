@@ -161,28 +161,9 @@ export default function Hero({
   }, [activeCourse]);
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden bg-bg-main bg-dot-pattern pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-24 border-b border-slate-100">
-
-      {/* Decorative Shifting Background Glow Orbs */}
-      <div className="absolute top-[-10%] left-[-10%] -z-10 h-[40%] w-[50%] rounded-full bg-gradient-to-br from-coral/12 to-pink-500/5 blur-[130px] animate-pulse-glow" />
-      <div className="absolute bottom-[20%] right-[-10%] -z-10 h-[50%] w-[55%] rounded-full bg-gradient-to-tr from-purple/12 to-indigo-500/5 blur-[150px] animate-pulse-glow" />
+    <section id="hero" className="relative w-full overflow-hidden bg-bg-main bg-dot-pattern pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pt-8 lg:pb-24 border-b border-slate-100">
 
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Urgent High-Converting Scarcity Banner */}
-        {/* <div className="w-full flex justify-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-coral/15 bg-coral/5 px-4 py-1.5 text-xs font-bold text-coral animate-bounce-subtle">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-coral"></span>
-            </span>
-            <span className="uppercase tracking-wider text-[10px] sm:text-[11px] font-black">
-              ⏳ Limited Cohort Capacity • Only 8 Seats Remaining in May Batch
-            </span>
-          </div>
-        </div> */}
-
-
 
         {/* Layout Grid: Left Content, Right Live Workspace Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -339,7 +320,7 @@ export default function Hero({
           </div>
 
           {/* RIGHT COLUMN: Interactive Lead Form */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center relative w-full px-2 gap-4">
+          <div className="lg:col-span-6 flex flex-col items-center lg:items-end justify-center relative w-full px-2 lg:px-0 gap-4">
 
             {/* Quick Info Cards: Duration & Mode of Training */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full max-w-[480px]">
