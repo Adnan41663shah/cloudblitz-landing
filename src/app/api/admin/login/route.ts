@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { password } = body;
 
     // Use environment variable for password, fallback to standard secure default
-    const adminPassword = process.env.ADMIN_PASSWORD || 'cloudblitz123';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'password123';
 
     if (password === adminPassword) {
       const response = NextResponse.json({ success: true, token: adminPassword });

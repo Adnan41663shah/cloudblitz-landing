@@ -63,16 +63,43 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
-    // Simulate API registration
-    setTimeout(() => {
+    setErrors({});
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email: email.trim() || undefined,
+          countryCode,
+          phone,
+          experience,
+          course: activeCourse,
+          purpose: 'consultation',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSuccess(true);
+      } else {
+        setErrors({ submit: data.error || 'Something went wrong. Please try again.' });
+      }
+    } catch (err) {
+      console.error('Lead submission failed:', err);
+      setErrors({ submit: 'Unable to connect to the server. Please check your network connection.' });
+    } finally {
       setLoading(false);
-      setSuccess(true);
-    }, 1200);
+    }
   };
 
   const themeClass = activeCourse === 'cdec' ? 'border-coral/20 shadow-glow-coral' : 'border-purple/20 shadow-glow-purple';
@@ -235,6 +262,12 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
                 </div>
               </div>
             </div>
+
+            {errors.submit && (
+              <p className="text-xs font-bold text-red-500 text-center bg-red-500/5 p-3 rounded-2xl border border-red-500/10">
+                {errors.submit}
+              </p>
+            )}
 
             <button
               type="submit"

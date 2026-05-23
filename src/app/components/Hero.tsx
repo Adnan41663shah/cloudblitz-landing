@@ -40,7 +40,6 @@ interface HeroProps {
 
 export default function Hero({
   activeCourse,
-  setActiveCourse,
   openModal,
   cdecBatch,
   cdecSeats,

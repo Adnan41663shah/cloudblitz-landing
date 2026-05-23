@@ -87,29 +87,57 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setLoading(true);
-    // Simulate API registration
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
+    setErrors({});
 
-      // Trigger automatic PDF download for syllabus
-      if (purpose === 'syllabus' || purpose === 'quick') {
-        const fileName = course === 'cdec' ? 'CDEC-AI.pdf' : 'X-DSAAI.pdf';
-        const fileUrl = `/assets/${fileName}`;
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email: email.trim() || undefined,
+          countryCode,
+          phone,
+          experience,
+          course,
+          purpose,
+          promoText: purpose === 'offer' ? (promoText || "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!") : undefined,
+        }),
+      });
 
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSuccess(true);
+
+        // Trigger automatic PDF download for syllabus
+        if (purpose === 'syllabus' || purpose === 'quick') {
+          const fileName = course === 'cdec' ? 'CDEC-AI.pdf' : 'X-DSAAI.pdf';
+          const fileUrl = `/assets/${fileName}`;
+
+          const link = document.createElement('a');
+          link.href = fileUrl;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+      } else {
+        setErrors({ submit: data.error || 'Something went wrong. Please try again.' });
       }
-    }, 1200);
+    } catch (err) {
+      console.error('Lead submission failed:', err);
+      setErrors({ submit: 'Unable to connect to the server. Please check your network connection.' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Determine customized content based on 'purpose' trigger mode
@@ -347,6 +375,12 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                   <option value="senior">Senior Lead / Expert (5+ Years)</option>
                 </select>
               </div>
+
+              {errors.submit && (
+                <p className="text-xs font-bold text-red-500 text-center bg-red-500/5 p-3 rounded-2xl border border-red-500/10">
+                  {errors.submit}
+                </p>
+              )}
 
               <button
                 type="submit"
