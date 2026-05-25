@@ -109,6 +109,7 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
           course,
           purpose,
           promoText: purpose === 'offer' ? (promoText || "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!") : undefined,
+          landingForm: 'LeadFormModal',
         }),
       });
 

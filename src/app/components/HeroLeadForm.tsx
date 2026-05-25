@@ -84,6 +84,7 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
           experience,
           course: activeCourse,
           purpose: 'consultation',
+          landingForm: 'HeroLeadForm',
         }),
       });
 
