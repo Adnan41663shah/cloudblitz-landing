@@ -54,114 +54,104 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 1. Submit lead to CloudBlitz CRM backend
+    // 1. Submit lead to CloudBlitz CRM backend (non-blocking for email notification)
     const crmApiUrl = process.env.CRM_API_URL;
     if (!crmApiUrl) {
-      console.error('[Lead Form API Error] CRM_API_URL environment variable is missing.');
-      return NextResponse.json(
-        { success: false, error: 'CRM integration failed: CRM_API_URL is not configured.' },
-        { status: 500 }
-      );
-    }
-
-    // Determine backend formType mapping
-    let formType = 'contact';
-    if (landingForm === 'HeroLeadForm') {
-      formType = 'career-counseling';
+      console.warn('[Lead Form API Warning] CRM_API_URL environment variable is missing. Skipping CRM submission.');
     } else {
-      switch (purpose) {
-        case 'consultation':
-          formType = 'career-counseling';
-          break;
-        case 'syllabus':
-          formType = 'syllabus-download';
-          break;
-        case 'quick':
-        case 'offer':
-          formType = 'contact';
-          break;
-        default:
-          formType = 'contact';
-      }
-    }
-
-    // Format phone number to clean international digits-only format
-    const cleanedPhone = phone.replace(/\D/g, '');
-    const formattedCountryCode = countryCode.startsWith('+') ? countryCode : `+${countryCode}`;
-    const fullPhone = `${formattedCountryCode}${cleanedPhone}`;
-
-    // Map landing parameters to CRM expected schemas
-    let crmPayload: any = {};
-    const crmCourse = course === 'cdec' ? 'CDEC' : 'X-DSAAI';
-    const formText = landingForm || (purpose === 'consultation' ? 'HeroLeadForm' : 'LeadFormModal');
-
-    if (formType === 'career-counseling') {
-      crmPayload = {
-        name,
-        phone: fullPhone,
-        course: crmCourse,
-        experienceLevel: experience,
-        message: `Source: CDEC Landing | purpose: ${purpose || 'consultation'} | form: ${formText}${promoText ? ` | promoText: ${promoText}` : ''}`
-      };
-      if (email && email.trim()) {
-        crmPayload.email = email.trim();
-      }
-    } else if (formType === 'syllabus-download') {
-      crmPayload = {
-        fullName: name,
-        phoneNumber: fullPhone,
-        course: crmCourse,
-        courseTitle: crmCourse,
-        message: `Source: CDEC Landing | purpose: ${purpose || 'syllabus'} | experience: ${experience}${email ? ` | email: ${email.trim()}` : ''}${promoText ? ` | promoText: ${promoText}` : ''}`
-      };
-    } else if (formType === 'contact') {
-      crmPayload = {
-        name,
-        phone: fullPhone,
-        course: crmCourse,
-        subject: purpose === 'offer' ? 'Promo Offer' : 'Callback Request',
-        courseInterest: crmCourse,
-        message: `Source: CDEC Landing | purpose: ${purpose || 'quick'} | experience: ${experience}${promoText ? ` | promoText: ${promoText}` : ''}`
-      };
-      if (email && email.trim()) {
-        crmPayload.email = email.trim();
-      }
-    }
-
-    const crmUrl = `${crmApiUrl.replace(/\/$/, '')}/api/website-forms/${formType}`;
-
-    try {
-      const crmResponse = await fetch(crmUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(crmPayload),
-      });
-
-      if (!crmResponse.ok) {
-        let errorMsg = 'Failed to submit lead to CRM backend.';
-        try {
-          const errorData = await crmResponse.json();
-          errorMsg = errorData.message || errorData.error || errorMsg;
-        } catch (e) {
-          try {
-            const text = await crmResponse.text();
-            if (text) errorMsg = text;
-          } catch (_) {}
+      // Determine backend formType mapping
+      let formType = 'contact';
+      if (landingForm === 'HeroLeadForm') {
+        formType = 'career-counseling';
+      } else {
+        switch (purpose) {
+          case 'consultation':
+            formType = 'career-counseling';
+            break;
+          case 'syllabus':
+            formType = 'syllabus-download';
+            break;
+          case 'quick':
+          case 'offer':
+            formType = 'contact';
+            break;
+          default:
+            formType = 'contact';
         }
-        console.error(`[CRM Submission Error] Mapped Status: ${crmResponse.status}, Error: ${errorMsg}`);
-        return NextResponse.json(
-          { success: false, error: `CRM Backend Error: ${errorMsg}` },
-          { status: crmResponse.status }
-        );
       }
-    } catch (fetchErr: any) {
-      console.error('[CRM Connection Error] Fetch failed:', fetchErr);
-      return NextResponse.json(
-        { success: false, error: `Unable to connect to CRM backend: ${fetchErr.message || fetchErr}` },
-        { status: 502 }
-      );
+
+      // Format phone number to clean international digits-only format
+      const cleanedPhone = phone.replace(/\D/g, '');
+      const formattedCountryCode = countryCode.startsWith('+') ? countryCode : `+${countryCode}`;
+      const fullPhone = `${formattedCountryCode}${cleanedPhone}`;
+
+      // Map landing parameters to CRM expected schemas
+      let crmPayload: any = {};
+      const crmCourse = course === 'cdec' ? 'CDEC' : 'X-DSAAI';
+      const formText = landingForm || (purpose === 'consultation' ? 'HeroLeadForm' : 'LeadFormModal');
+
+      if (formType === 'career-counseling') {
+        crmPayload = {
+          name,
+          phone: fullPhone,
+          course: crmCourse,
+          experienceLevel: experience,
+          message: `Source: CDEC Landing | purpose: ${purpose || 'consultation'} | form: ${formText}${promoText ? ` | promoText: ${promoText}` : ''}`
+        };
+        if (email && email.trim()) {
+          crmPayload.email = email.trim();
+        }
+      } else if (formType === 'syllabus-download') {
+        crmPayload = {
+          fullName: name,
+          phoneNumber: fullPhone,
+          course: crmCourse,
+          courseTitle: crmCourse,
+          message: `Source: CDEC Landing | purpose: ${purpose || 'syllabus'} | experience: ${experience}${email ? ` | email: ${email.trim()}` : ''}${promoText ? ` | promoText: ${promoText}` : ''}`
+        };
+      } else if (formType === 'contact') {
+        crmPayload = {
+          name,
+          phone: fullPhone,
+          course: crmCourse,
+          subject: purpose === 'offer' ? 'Promo Offer' : 'Callback Request',
+          courseInterest: crmCourse,
+          message: `Source: CDEC Landing | purpose: ${purpose || 'quick'} | experience: ${experience}${promoText ? ` | promoText: ${promoText}` : ''}`
+        };
+        if (email && email.trim()) {
+          crmPayload.email = email.trim();
+        }
+      }
+
+      const crmUrl = `${crmApiUrl.replace(/\/$/, '')}/api/website-forms/${formType}`;
+
+      try {
+        const crmResponse = await fetch(crmUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(crmPayload),
+        });
+
+        if (!crmResponse.ok) {
+          let errorMsg = 'Failed to submit lead to CRM backend.';
+          try {
+            const errorData = await crmResponse.json();
+            errorMsg = errorData.message || errorData.error || errorMsg;
+          } catch (e) {
+            try {
+              const text = await crmResponse.text();
+              if (text) errorMsg = text;
+            } catch (_) {}
+          }
+          console.error(`[CRM Submission Error] Mapped Status: ${crmResponse.status}, Error: ${errorMsg}`);
+        } else {
+          console.log(`[CRM Submission Success] Mapped Status: ${crmResponse.status}`);
+        }
+      } catch (fetchErr: any) {
+        console.error('[CRM Connection Error] Fetch failed:', fetchErr);
+      }
     }
 
     const submissionTime = new Date();
