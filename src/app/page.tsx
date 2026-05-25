@@ -199,7 +199,7 @@ export default function Home() {
           XDSAAISeats={content.heroXDSAAISeats}
         />
 
-        {/* 3. Global value highlights */}
+        {/* 3. Global value highlights with background banner */}
         <Highlights />
 
         {/* 4. Syllabus Expandable Accordions */}
