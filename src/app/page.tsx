@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState, useEffect, Suspense } from 'react';
+"use client"
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { CourseType, ModalPurpose } from './types';
 import Header from './components/Header';

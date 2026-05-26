@@ -87,10 +87,10 @@ export default function Highlights() {
       {/* Highlights Grid Container */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
+
           {/* Left Column: Heading and 2x2 Highlights Grid */}
           <div className="lg:col-span-7 flex flex-col justify-center text-left">
-            
+
             {/* Header Content */}
             <div className="max-w-2xl mb-10 space-y-3.5">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-coral/10 px-3 py-1 text-xs font-bold text-coral uppercase tracking-wider">
@@ -107,8 +107,8 @@ export default function Highlights() {
             {/* Grid layout for Highlight Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5.5">
               {highlights.map((h) => (
-                <div 
-                  key={h.id} 
+                <div
+                  key={h.id}
                   className="group relative bg-white/70 backdrop-blur-md rounded-3xl p-5 border border-white/60 hover:bg-white shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-coral/20"
                 >
                   {/* Icon and Badge Header */}

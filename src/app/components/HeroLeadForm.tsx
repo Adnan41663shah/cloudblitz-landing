@@ -107,9 +107,9 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
   const primaryColor = activeCourse === 'cdec' ? 'text-coral' : 'text-purple';
 
   return (
-    <div className={`relative w-full max-w-[480px] rounded-3xl border bg-white p-6 sm:p-8 shadow-2xl transition-all duration-500 ${themeClass}`}>
+    <div className={`relative w-full max-w-[480px] rounded-3xl border bg-white p-6 sm:p-8 shadow-2xl transition-all duration-500 overflow-hidden ${themeClass}`}>
       {/* Decorative gradient top bar */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 w-full bg-gradient-brand rounded-t-3xl" />
+      <div className="absolute top-0 left-0 right-0 h-1.5 w-full bg-gradient-brand" />
 
       {!success ? (
         <>
