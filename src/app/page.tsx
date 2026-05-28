@@ -16,8 +16,8 @@ import LeadFormModal from './components/LeadFormModal';
 import { SiteContent } from './types/admin';
 import AdminCustomizer from './components/AdminCustomizer';
 
-export default function Home() {
-  const [activeCourse, setActiveCourse] = useState<CourseType>('cdec');
+export default function Home({ initialCourse = 'cdec' }: { initialCourse?: CourseType }) {
+  const [activeCourse, setActiveCourse] = useState<CourseType>(initialCourse);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPreselectedCourse, setModalPreselectedCourse] = useState<CourseType>('cdec');
   const [modalPurpose, setModalPurpose] = useState<ModalPurpose>('consultation');

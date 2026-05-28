@@ -11,13 +11,16 @@ interface Enrollment {
 
 const mockEnrollments: Enrollment[] = [
   { name: 'Kavya', city: 'Indore', course: 'Expert in Data Science and Analytics with AI', time: '2 minutes ago' },
-  { name: 'Rahul', city: 'Pune', course: 'Cloud DevOps Engineering Course', time: '5 minutes ago' },
-  { name: 'Priyanka', city: 'Bangalore', course: 'Expert in Data Science and Analytics with AI', time: '1 minute ago' },
+  { name: 'Faiz', city: 'Pune', course: 'Cloud DevOps Engineering Course', time: '5 minutes ago' },
+  { name: 'Priyanka', city: 'Napur', course: 'Expert in Data Science and Analytics with AI', time: '1 minute ago' },
   { name: 'Aditya', city: 'Delhi', course: 'Cloud DevOps Engineering Course', time: '3 minutes ago' },
   { name: 'Meera', city: 'Hyderabad', course: 'Expert in Data Science and Analytics with AI', time: '4 minutes ago' },
   { name: 'Siddharth', city: 'Mumbai', course: 'Cloud DevOps Engineering Course', time: '2 minutes ago' },
   { name: 'Ananya', city: 'Chennai', course: 'Expert in Data Science and Analytics with AI', time: '6 minutes ago' },
   { name: 'Vikram', city: 'Gurugram', course: 'Cloud DevOps Engineering Course', time: '7 minutes ago' },
+  { name: 'Noman', city: 'Nagpur', course: 'Cloud DevOps Engineering Course', time: '2 minutes ago' },
+  { name: 'Rahul', city: 'Chennai', course: 'Expert in Data Science and Analytics with AI', time: '6 minutes ago' },
+  { name: 'Paramjeet', city: 'Nagpur', course: 'Cloud DevOps Engineering Course', time: '7 minutes ago' },
 ];
 
 export default function SocialProof() {

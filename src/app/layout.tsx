@@ -27,7 +27,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "CLOUDBLITZ | Master Cloud DevOps (CDEC) & Data Science & AI (X-DSAAI)",
+  title: "Cloudblitz - Master Cloud DevOps (CDEC) | Data Science & AI (X-DSAAI)",
   description: "Propel your career with Cloudblitz's elite, live-interactive tech cohorts. Master Kubernetes, AWS and CI/CD pipelines (CDEC) or Deep Learning, Generative AI and analytics dashboarding (X-DSAAI). Assured corporate placements.",
   keywords: [
     "Cloud DevOps Course",

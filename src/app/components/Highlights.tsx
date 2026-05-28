@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
-import bannerImage from '../assets/image.png';
+import bannerImage from '../assets/image.webp';
 
 interface HighlightCard {
   id: number;
@@ -134,7 +134,7 @@ export default function Highlights() {
 
           </div>
 
-          {/* Right Column: Intentionally Empty (showcases image.png professional background on desktop) */}
+          {/* Right Column: Intentionally Empty (showcases image.webp professional background on desktop) */}
           <div className="hidden lg:block lg:col-span-5 h-[350px] pointer-events-none select-none" />
 
         </div>
