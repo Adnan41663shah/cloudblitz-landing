@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
-export const runtime = "nodejs";
+import { getAdminPassword } from '../../../lib/env';
+
+export const runtime = 'nodejs';
 
 const defaultContent = {
   promoText: "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!",
@@ -113,7 +115,7 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   try {
-    const adminPassword = process.env.ADMIN_PASSWORD || 'cloudblitz123';
+    const adminPassword = getAdminPassword();
 
     // Auth security check (cookie or auth header token check)
     const tokenCookie = request.cookies.get('admin_token')?.value;

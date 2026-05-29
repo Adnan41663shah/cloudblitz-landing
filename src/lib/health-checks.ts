@@ -315,18 +315,16 @@ async function checkEmail(): Promise<ServiceCheckResult> {
 
 function checkAdmin(): ServiceCheckResult {
   const adminPassword = trimEnv(process.env.ADMIN_PASSWORD);
-  const loginDefault = 'password123';
-  const verifyDefault = 'cloudblitz123';
+  const fallback = 'password123';
 
   if (!adminPassword) {
     return {
       service: 'admin',
       status: 'warning',
       configured: false,
-      message: `ADMIN_PASSWORD is not set. Login falls back to "${loginDefault}" but verify uses "${verifyDefault}" — admin auth will be inconsistent.`,
+      message: `ADMIN_PASSWORD is not set. All admin routes use fallback "${fallback}" — set ADMIN_PASSWORD in Amplify for production.`,
       details: {
-        loginFallback: loginDefault,
-        verifyFallback: verifyDefault,
+        fallback,
       },
     };
   }

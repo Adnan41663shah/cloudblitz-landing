@@ -1,9 +1,11 @@
 import { NextResponse, NextRequest } from 'next/server';
-export const runtime = "nodejs";
+import { getAdminPassword } from '../../../../lib/env';
+
+export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   try {
-    const adminPassword = process.env.ADMIN_PASSWORD || 'cloudblitz123';
+    const adminPassword = getAdminPassword();
     
     // Extract token from HTTP-only cookie
     const tokenCookie = request.cookies.get('admin_token')?.value;

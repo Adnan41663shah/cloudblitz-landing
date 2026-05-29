@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
-export const runtime = "nodejs";
+import { getAdminPassword } from '../../../../lib/env';
+
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { password } = body;
 
-    // Use environment variable for password, fallback to standard secure default
-    const adminPassword = process.env.ADMIN_PASSWORD || 'password123';
+    const adminPassword = getAdminPassword();
 
     if (password === adminPassword) {
       const response = NextResponse.json({ success: true, token: adminPassword });
@@ -16,7 +17,7 @@ export async function POST(request: Request) {
       response.cookies.set('admin_token', adminPassword, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        sameSite: 'lax',
         path: '/',
         maxAge: 60 * 60 * 24 * 7 // 7 days
       });
