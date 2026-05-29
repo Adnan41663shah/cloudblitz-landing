@@ -12,8 +12,15 @@ Your health response shows **no environment variables** reach API routes. That i
 | `ADMIN_PASSWORD` | strong password you will use on `/admin/login` |
 | `CRM_API_URL` | `https://your-live-crm.example.com` (not localhost) |
 | `EMAIL_USER` | Gmail or SMTP user |
-| `EMAIL_PASS` | Google App Password (16 chars) |
+| `EMAIL_PASS` | Google App Password (16 chars) — key must be **`EMAIL_PASS`** not `EMAIL_PASSWORD` |
 | `EMAIL_RECEIVER` | inbox for lead alerts |
+
+Important:
+
+- Use **Environment variables** in the Hosting section (available during build as `EMAIL_USER`, etc.).
+- If you only added **Secrets** in a different Amplify screen, they may **not** appear in the build — add the same three keys as regular environment variables.
+- Variables are **per branch** — set them on the branch you deploy (e.g. `main`).
+- Your local **`.env` file is never uploaded** (gitignored). You must type the same values into Amplify Console.
 
 Click **Save**.
 
@@ -45,6 +52,16 @@ EMAIL_PASS
 ```
 
 If you see `(none)`, variables are not set in Amplify for that branch.
+
+For email specifically, the log should list:
+
+```text
+EMAIL_USER
+EMAIL_PASS
+EMAIL_RECEIVER
+```
+
+If you see warnings that `EMAIL_*` is missing, those keys were **not** in the build environment — fix Amplify Console and redeploy again.
 
 ## Understanding `/api/health` status
 
