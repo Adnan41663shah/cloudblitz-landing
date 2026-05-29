@@ -28,6 +28,8 @@ export type HealthReport = {
     notConfiguredServices: string[];
   };
   services: Record<string, ServiceCheckResult>;
+  /** Action items when status is degraded or unhealthy */
+  nextSteps?: string[];
   amplifyHint?: string;
 };
 
@@ -173,14 +175,15 @@ async function checkCrm(): Promise<ServiceCheckResult> {
 
   const base = crmApiUrl.replace(/\/$/, '');
   const probeUrls = [
+    `${base}/api/website-forms/contact`,
     `${base}/api/health`,
     `${base}/health`,
-    `${base}/api/website-forms/contact`,
     base,
   ];
 
   const started = Date.now();
   let lastError = 'No response from CRM';
+  let softHit: { url: string; status: number } | null = null;
 
   for (const url of probeUrls) {
     try {
@@ -192,27 +195,38 @@ async function checkCrm(): Promise<ServiceCheckResult> {
         })
       );
 
-      if (response.status < 500) {
+      if (response.ok) {
         return {
           service: 'crm',
-          status: response.ok ? 'ok' : 'warning',
+          status: 'ok',
           configured: true,
-          message:
-            response.ok
-              ? `CRM reachable at ${url}`
-              : `CRM reachable at ${url} but returned HTTP ${response.status} (may still accept POST leads).`,
+          message: `CRM reachable at ${url}`,
           latencyMs: Date.now() - started,
-          details: {
-            probeUrl: url,
-            httpStatus: response.status,
-          },
+          details: { probeUrl: url, httpStatus: response.status },
         };
+      }
+
+      // 404 on /health alone is normal — keep probing. 405 on form route = server is up.
+      if (response.status < 500) {
+        softHit = { url, status: response.status };
+        continue;
       }
 
       lastError = `HTTP ${response.status} from ${url}`;
     } catch (error) {
       lastError = errorMessage(error);
     }
+  }
+
+  if (softHit) {
+    return {
+      service: 'crm',
+      status: 'ok',
+      configured: true,
+      message: `CRM server is online (HTTP ${softHit.status} from ${softHit.url}). Lead POST to /api/website-forms/* should work.`,
+      latencyMs: Date.now() - started,
+      details: { probeUrl: softHit.url, httpStatus: softHit.status },
+    };
   }
 
   return {
@@ -409,10 +423,36 @@ export async function runHealthChecks(): Promise<HealthReport> {
     services[s.service] = s;
   }
 
-  const amplifyHint =
-    summary.notConfiguredServices.length > 0
-      ? 'On AWS Amplify, environment variables must be written to .env.production before `next build`. Add amplify.yml with scripts/write-production-env.sh or set vars manually in the build phase.'
-      : undefined;
+  const coreEnvMissing =
+    !services.environment?.details?.MONGODB_URI &&
+    !services.environment?.details?.CRM_API_URL;
+
+  const amplifyHint = coreEnvMissing
+    ? 'On AWS Amplify, environment variables must be written to .env.production before `next build` (see amplify.yml and AMPLIFY_DEPLOY.md).'
+    : undefined;
+
+  const nextSteps: string[] = [];
+  if (services.email?.status === 'skipped') {
+    nextSteps.push(
+      'Add EMAIL_USER, EMAIL_PASS, and EMAIL_RECEIVER in Amplify Console, then redeploy.'
+    );
+  }
+  if (services.email?.status === 'error') {
+    nextSteps.push('Fix email: use a Google App Password or Amazon SES; check CloudWatch logs.');
+  }
+  if (services.crm?.status === 'error') {
+    nextSteps.push(
+      'CRM unreachable: use a stable public HTTPS URL (ngrok URLs change when tunnel restarts).'
+    );
+  }
+  if (environment.details && environment.status === 'warning') {
+    const missing = Object.entries(environment.details)
+      .filter(([, v]) => v === false)
+      .map(([k]) => k);
+    if (missing.length > 0 && !missing.every((k) => k.startsWith('EMAIL_'))) {
+      nextSteps.push(`Add missing Amplify variables: ${missing.join(', ')}`);
+    }
+  }
 
   return {
     status,
@@ -421,6 +461,7 @@ export async function runHealthChecks(): Promise<HealthReport> {
     runtime: 'nodejs',
     summary,
     services,
+    ...(nextSteps.length > 0 ? { nextSteps } : {}),
     amplifyHint,
   };
 }

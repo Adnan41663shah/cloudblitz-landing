@@ -46,6 +46,16 @@ EMAIL_PASS
 
 If you see `(none)`, variables are not set in Amplify for that branch.
 
+## Understanding `/api/health` status
+
+| Status | Meaning |
+|--------|---------|
+| **healthy** | Everything configured and working |
+| **degraded** | Core backend works; optional pieces missing (usually email) |
+| **unhealthy** | A configured service failed (e.g. MongoDB down) |
+
+If you see **degraded** with `mongodb` and `admin` **ok**, Amplify env injection is working. Add missing `EMAIL_*` variables and redeploy.
+
 ## Step 5 — Test health endpoint
 
 ```text
