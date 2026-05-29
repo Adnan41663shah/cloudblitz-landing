@@ -96,10 +96,10 @@ export default function Highlights() {
               <span className="inline-flex items-center gap-1.5 rounded-full bg-coral/10 px-3 py-1 text-xs font-bold text-coral uppercase tracking-wider">
                 Engineered for Excellence
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight leading-tight font-display">
                 Engineered for <span className="text-gradient">Career Transitions</span>
               </h2>
-              <p className="text-sm sm:text-base text-text-muted leading-relaxed font-semibold">
+              <p className="text-sm sm:text-base text-text-muted leading-relaxed font-normal">
                 We bridge the gap between classroom syntax and corporate expectation by delivering a fully immersive, feedback-driven education structure.
               </p>
             </div>
@@ -122,10 +122,10 @@ export default function Highlights() {
                   </div>
 
                   {/* Title & Description Content */}
-                  <h3 className="text-base font-bold text-text-dark mb-1.5 group-hover:text-coral transition-colors">
+                  <h3 className="text-base font-semibold text-text-dark mb-1.5 group-hover:text-coral transition-colors">
                     {h.title}
                   </h3>
-                  <p className="text-[12.5px] text-text-medium leading-relaxed font-semibold">
+                  <p className="text-[12.5px] text-text-medium leading-relaxed font-normal">
                     {h.description}
                   </p>
                 </div>

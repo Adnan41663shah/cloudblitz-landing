@@ -144,7 +144,7 @@ export default function PlacementsAndReviews() {
           <span className="text-[10px] font-extrabold uppercase text-purple tracking-wider bg-purple/10 px-3.5 py-1.5 rounded-full">
             Alumni Testimonials
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight font-display">
             Hear from our <span className="text-gradient">Successful Graduates</span>
           </h2>
           <p className="text-sm sm:text-base text-text-muted">
@@ -173,7 +173,7 @@ export default function PlacementsAndReviews() {
                   ))}
                 </div>
 
-                <p className="text-xs sm:text-sm text-text-medium leading-relaxed font-medium italic">
+                <p className="text-xs sm:text-sm text-text-medium leading-relaxed font-normal italic font-serif">
                   "{rev.text}"
                 </p>
               </div>
@@ -186,7 +186,7 @@ export default function PlacementsAndReviews() {
                   <h4 className="font-bold text-sm text-text-dark">{rev.name}</h4>
                   <p className="text-[11px] text-text-muted font-medium">{rev.role}</p>
                 </div>
-                <div className="ml-auto font-black text-xs text-coral bg-coral/5 px-2.5 py-1 rounded-lg">
+                <div className="ml-auto font-semibold text-xs text-coral bg-coral/5 px-2.5 py-1 rounded-lg">
                   {rev.package}
                 </div>
               </div>
@@ -201,7 +201,7 @@ export default function PlacementsAndReviews() {
           <span className="text-[10px] font-extrabold uppercase text-coral tracking-wider bg-coral/10 px-3.5 py-1.5 rounded-full">
             Transitions Showcase
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight font-display">
             Glimpse of our <span className="text-gradient">Recent Placements</span>
           </h2>
           <p className="text-sm sm:text-base text-text-muted">
@@ -248,11 +248,11 @@ export default function PlacementsAndReviews() {
                   >
                     <div className="space-y-1">
                       <h4 className="font-bold text-sm text-text-dark group-hover:text-coral transition-colors">{p.name}</h4>
-                      <p className="text-[11px] text-text-muted font-semibold">{p.role}</p>
+                      <p className="text-[11px] text-text-muted font-normal">{p.role}</p>
                     </div>
                     <div className="mt-4 flex items-center justify-between">
                       <span className="text-[10px] uppercase font-bold text-text-muted tracking-wider">Salary Package</span>
-                      <span className="text-xs sm:text-sm font-black text-purple bg-purple/5 px-2.5 py-1 rounded-lg">
+                      <span className="text-xs sm:text-sm font-semibold text-purple bg-purple/5 px-2.5 py-1 rounded-lg">
                         {p.package}
                       </span>
                     </div>
@@ -273,11 +273,11 @@ export default function PlacementsAndReviews() {
                   >
                     <div className="space-y-1">
                       <h4 className="font-bold text-sm text-text-dark group-hover:text-coral transition-colors">{p.name}</h4>
-                      <p className="text-[11px] text-text-muted font-semibold">{p.role}</p>
+                      <p className="text-[11px] text-text-muted font-normal">{p.role}</p>
                     </div>
                     <div className="mt-4 flex items-center justify-between">
                       <span className="text-[10px] uppercase font-bold text-text-muted tracking-wider">Salary Package</span>
-                      <span className="text-xs sm:text-sm font-black text-purple bg-purple/5 px-2.5 py-1 rounded-lg">
+                      <span className="text-xs sm:text-sm font-semibold text-purple bg-purple/5 px-2.5 py-1 rounded-lg">
                         {p.package}
                       </span>
                     </div>

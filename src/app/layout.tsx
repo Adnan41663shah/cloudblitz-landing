@@ -1,21 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Inter, Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const viewport: Viewport = {
@@ -64,9 +65,9 @@ export const metadata: Metadata = {
     description: "Transition into elite tech engineering roles. Live mentorship, sandbox sandboxes, and dedicated mock interview reviews.",
   },
   icons: {
-    icon: "/cloudblitz-logo.png",
-    shortcut: "/cloudblitz-logo.png",
-    apple: "/cloudblitz-logo.png",
+    icon: "/cloudblitz-logo.webp",
+    shortcut: "/cloudblitz-logo.webp",
+    apple: "/cloudblitz-logo.webp",
   },
   appleWebApp: {
     capable: true,
@@ -113,7 +114,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
+      className={`${inter.variable} ${outfit.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>

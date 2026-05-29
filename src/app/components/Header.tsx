@@ -240,7 +240,7 @@ export default function Header({
                 href="https://wa.me/919834887259?text=Hi!%20I'm%20interested%20in%20learning%20more%20about%20CloudBlitz%20courses.%20Can%20you%20help%20me?"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-50/40 hover:bg-emerald-50/80 px-4.5 h-11 text-xs font-black text-emerald-600 transition-all duration-300 shadow-sm backdrop-blur-md active:scale-95 hover:-translate-y-0.5 cursor-pointer hover:shadow-emerald-500/5"
+                className="flex items-center justify-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-50/40 hover:bg-emerald-50/80 px-4.5 h-11 text-xs font-bold text-emerald-600 transition-all duration-300 shadow-sm backdrop-blur-md active:scale-95 hover:-translate-y-0.5 cursor-pointer hover:shadow-emerald-500/5"
               >
                 <Image
                   src={whatsappIcon}
@@ -361,7 +361,7 @@ export default function Header({
               setMobileMenuOpen(false);
               openModal(activeCourse, 'consultation');
             }}
-            className="w-full relative flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand hover:opacity-95 py-4 text-xs font-black text-white transition-all shadow-md active:scale-95 cursor-pointer overflow-hidden text-center"
+            className="w-full relative flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand hover:opacity-95 py-4 text-xs font-bold text-white transition-all shadow-md active:scale-95 cursor-pointer overflow-hidden text-center"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

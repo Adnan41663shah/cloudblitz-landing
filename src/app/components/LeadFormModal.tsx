@@ -219,7 +219,7 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                 <span className="flex h-1.5 w-1.5 rounded-full bg-coral animate-pulse" />
                 Special Batch Registration Open
               </span>
-              <h3 className="mt-1.5 text-xl sm:text-2xl font-black text-text-dark tracking-tight leading-snug">
+              <h3 className="mt-1.5 text-xl sm:text-2xl font-black text-text-dark tracking-wider leading-snug">
                 {headingText}
               </h3>
               <p className="mt-1 text-xs sm:text-sm text-text-muted leading-relaxed font-semibold">

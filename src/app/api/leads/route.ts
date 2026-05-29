@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import nodemailer from 'nodemailer';
-
+export const runtime = "nodejs";
 // Helper to format experience levels for nicer display
 function formatExperience(exp: string): string {
   switch (exp) {

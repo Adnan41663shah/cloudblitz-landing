@@ -22,7 +22,7 @@
     --border-light: #e2e8f0;
 
     /* Gradient helpers */
-    --grad-primary: linear-gradient(135deg, var(--primary-coral) 0%, var(--primary-purple) 100%);
+    --grad-primary: linear-gradient(135deg, var(--primary-coral) 0%, var(--primary-purple) 100%); 
     --grad-coral-subtle: linear-gradient(135deg, rgba(255, 107, 0, 0.08) 0%, rgba(255, 107, 0, 0.01) 100%);
     --grad-purple-subtle: linear-gradient(135deg, rgba(143, 47, 226, 0.08) 0%, rgba(143, 47, 226, 0.01) 100%);
     --grad-combined-subtle: linear-gradient(135deg, rgba(255, 107, 0, 0.04) 0%, rgba(143, 47, 226, 0.04) 100%);
@@ -46,7 +46,9 @@
   --color-text-muted: var(--text-muted);
   --color-border-light: var(--border-light);
 
-  --font-sans: var(--font-outfit), var(--font-geist-sans), sans-serif;
+  --font-sans: var(--font-inter), sans-serif;
+  --font-display: var(--font-outfit), sans-serif;
+  --font-serif: Georgia, serif;
   --font-mono: var(--font-geist-mono), monospace;
 }
 

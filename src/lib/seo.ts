@@ -55,13 +55,13 @@ export async function generateCourseMetadata(course: CourseType): Promise<Metada
         type: "website",
         locale: "en_US",
         siteName: "CLOUDBLITZ",
-        images: [{ url: "https://cloudblitz.in/cloudblitz-logo.png", width: 800, height: 600, alt: "CLOUDBLITZ" }]
+        images: [{ url: "https://cloudblitz.in/cloudblitz-logo.webp", width: 800, height: 600, alt: "CLOUDBLITZ" }]
       },
       twitter: {
         card: "summary_large_image",
         title,
         description,
-        images: ["https://cloudblitz.in/cloudblitz-logo.png"]
+        images: ["https://cloudblitz.in/cloudblitz-logo.webp"]
       }
     };
   } else {
@@ -89,13 +89,13 @@ export async function generateCourseMetadata(course: CourseType): Promise<Metada
         type: "website",
         locale: "en_US",
         siteName: "CLOUDBLITZ",
-        images: [{ url: "https://cloudblitz.in/cloudblitz-logo.png", width: 800, height: 600, alt: "CLOUDBLITZ" }]
+        images: [{ url: "https://cloudblitz.in/cloudblitz-logo.webp", width: 800, height: 600, alt: "CLOUDBLITZ" }]
       },
       twitter: {
         card: "summary_large_image",
         title,
         description,
-        images: ["https://cloudblitz.in/cloudblitz-logo.png"]
+        images: ["https://cloudblitz.in/cloudblitz-logo.webp"]
       }
     };
   }

@@ -284,11 +284,11 @@ export default function Syllabus({ activeCourse, openModal }: SyllabusProps) {
             <span className="text-[10px] font-extrabold uppercase text-coral tracking-wider bg-coral/10 px-3.5 py-1.5 rounded-full">
               Full-Scale Curriculums
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight font-display">
               Syllabus Engineered for <br />
               <span className="text-gradient">Production Readiness</span>
             </h2>
-            <p className="text-sm sm:text-base text-text-medium leading-relaxed font-medium">
+            <p className="text-sm sm:text-base text-text-medium leading-relaxed font-normal">
               We skip basic code introductions and focus immediately on real enterprise tools, scaling concepts, and standard industry pipeline designs.
             </p>
           </div>
@@ -305,7 +305,7 @@ export default function Syllabus({ activeCourse, openModal }: SyllabusProps) {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-text-dark">Interactive Practice Sandbox</h4>
+                  <h4 className="text-sm font-semibold text-text-dark">Interactive Practice Sandbox</h4>
                   <p className="text-[11px] text-text-muted">No configuration required - run code on cloud sandbox.</p>
                 </div>
               </div>
@@ -317,7 +317,7 @@ export default function Syllabus({ activeCourse, openModal }: SyllabusProps) {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-text-dark">Capstone Architecture Labs</h4>
+                  <h4 className="text-sm font-semibold text-text-dark">Capstone Architecture Labs</h4>
                   <p className="text-[11px] text-text-muted">Deploy complete web configurations to cloud servers.</p>
                 </div>
               </div>
@@ -352,7 +352,7 @@ export default function Syllabus({ activeCourse, openModal }: SyllabusProps) {
                 >
                   <div className="space-y-1">
                     <span className="block text-xs font-semibold text-text-muted">{mod.subtitle}</span>
-                    <h3 className="text-sm sm:text-base font-bold text-text-dark leading-tight">{mod.title}</h3>
+                    <h3 className="text-sm sm:text-base font-semibold text-text-dark leading-tight">{mod.title}</h3>
                   </div>
 
                   <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all ${isExpanded ? 'border-coral bg-coral text-white rotate-180' : 'border-border-light text-text-muted bg-white'}`}>

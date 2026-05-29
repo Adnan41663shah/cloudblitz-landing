@@ -114,7 +114,7 @@ export default function HeroLeadForm({ activeCourse }: HeroLeadFormProps) {
       {!success ? (
         <>
           <div className="mb-6">
-            <h3 className="text-xl sm:text-2xl font-black text-text-dark tracking-tight leading-snug">
+            <h3 className="text-xl sm:text-2xl font-black text-text-dark tracking-wider leading-snug">
               Kickstart Your Tech Career
             </h3>
             <p className="mt-1.5 text-xs sm:text-sm text-text-muted leading-relaxed font-semibold">

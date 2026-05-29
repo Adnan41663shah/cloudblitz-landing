@@ -76,7 +76,7 @@ export default function FAQ({ customFaqItems }: FAQProps) {
 
       {/* Title */}
       <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight font-display">
           Frequently Asked <span className="text-gradient">Questions</span>
         </h2>
         <p className="text-sm sm:text-base text-text-muted">

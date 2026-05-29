@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { CourseType } from '../types';
 import HeroLeadForm from './HeroLeadForm';
 import { CardStarsBackground } from '@/components/ui/card-stars';
+import { motion } from 'motion/react';
 import { SiAccenture, SiTata, SiNetflix, SiIntel, SiCisco, SiDell, SiHp, SiSamsung, SiSony } from "react-icons/si";
 import { FaGoogle, FaMicrosoft, FaAmazon, FaAws, FaApple, FaFacebook, FaSpotify } from "react-icons/fa";
 
@@ -39,6 +40,31 @@ interface HeroProps {
   XDSAAISeats?: string;
 }
 
+const headingContainerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.05,
+    }
+  }
+};
+
+const headingWordVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 12,
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      type: "spring" as const,
+      damping: 22,
+      stiffness: 150,
+    }
+  }
+};
+
 export default function Hero({
   activeCourse,
   openModal,
@@ -62,7 +88,7 @@ export default function Hero({
         <>
           {parts[0]}
           <span className={`relative inline-block ${isCdec ? 'hero-keyword-coral' : 'hero-keyword-purple'}`}>
-            <span className={isCdec ? 'text-gradient-coral font-black' : 'text-gradient-purple font-black'}>
+            <span className={isCdec ? 'text-gradient-coral font-bold' : 'text-gradient-purple font-bold'}>
               {keyword}
             </span>
             <span className={`absolute -bottom-1 left-0 right-0 h-[3px] rounded-full ${isCdec ? 'bg-gradient-to-r from-coral to-orange-400' : 'bg-gradient-to-r from-purple to-pink-400'} opacity-60`} />
@@ -177,33 +203,71 @@ export default function Hero({
               <span className="uppercase tracking-widest text-[9px] font-black text-text-muted">Interactive Classroom to Corporate Track</span>
             </div>
 
-            {/* Dynamic Bolder Headings */}
+            {/* Dynamic Bolder Headings with Smooth Word-by-Word Reveal */}
             <div className="space-y-4">
               {activeCourse === 'cdec' ? (
-                <h1 className="text-4xl sm:text-5xl lg:text-[50px] font-black tracking-[-0.02em] text-text-dark leading-[1.08]">
-                  Become a{' '}
-                  <span className="relative">
-                    <span className="text-coral font-black">Production-Ready</span>
-                  </span>{' '}
-                  Cloud DevOps Engineer.
-                </h1>
+                <motion.h1
+                  key="cdec-heading"
+                  variants={headingContainerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-4xl sm:text-5xl lg:text-[50px] font-bold tracking-wider text-text-dark leading-[1.08] font-display"
+                >
+                  {["Become", "a"].map((word, i) => (
+                    <motion.span key={`cdec-word-pre-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em]">
+                      {word}
+                    </motion.span>
+                  ))}
+                  <motion.span variants={headingWordVariants} className="inline-block mr-[0.22em]">
+                    <span className="relative">
+                      <span className="text-gradient font-bold">Production-Ready</span>
+                    </span>
+                  </motion.span>
+                  {["Cloud", "DevOps", "Engineer."].map((word, i) => (
+                    <motion.span key={`cdec-word-post-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em] last:mr-0">
+                      {word}
+                    </motion.span>
+                  ))}
+                </motion.h1>
               ) : (
-                <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-[-0.02em] text-text-dark leading-[1.08]">
-                  Become an{' '}
-                  <span className="relative">
-                    <span className="text-purple font-black">Industry-Ready</span>
-                  </span>{' '}
-                  Data Scientist &amp; AI Expert.
-                </h1>
+                <motion.h1
+                  key="xdsaai-heading"
+                  variants={headingContainerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-wider text-text-dark leading-[1.08] font-display"
+                >
+                  {["Become", "an"].map((word, i) => (
+                    <motion.span key={`ds-word-pre-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em]">
+                      {word}
+                    </motion.span>
+                  ))}
+                  <motion.span variants={headingWordVariants} className="inline-block mr-[0.22em]">
+                    <span className="relative">
+                      <span className="text-gradient font-bold">Industry-Ready</span>
+                    </span>
+                  </motion.span>
+                  {["Data", "Scientist", "&", "AI", "Expert."].map((word, i) => (
+                    <motion.span key={`ds-word-post-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em] last:mr-0">
+                      {word === "&" ? "&" : word}
+                    </motion.span>
+                  ))}
+                </motion.h1>
               )}
 
-              {/* Dynamic Description Paragraph */}
-              <p className="max-w-2xl text-base sm:text-lg text-text-medium leading-relaxed font-semibold">
+              {/* Dynamic Description Paragraph with Delayed Fade-in */}
+              <motion.p
+                key={activeCourse === 'cdec' ? 'cdec-desc' : 'xdsaai-desc'}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.35, ease: "easeOut" }}
+                className="max-w-2xl text-base sm:text-lg text-text-medium leading-relaxed font-normal"
+              >
                 {activeCourse === 'cdec'
                   ? "Gain hands-on expertise in AWS, Azure, Docker, Kubernetes, Terraform, Jenkins, and Git. Learn real pipelines, automated testing, and secure infrastructure deployment under professional guidance with 100% placement support."
                   : "Master Python, SQL, statistics, machine learning, deep learning, and AI-driven analytics. Gain high-demand expertise in Tableau, Power BI, Hadoop, Spark, R-Programming, and cloud platforms like AWS and Google Cloud through hands-on projects."
                 }
-              </p>
+              </motion.p>
             </div>
 
             {/* Trust and Key Value Bullets */}
@@ -214,7 +278,7 @@ export default function Hero({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-xs font-bold text-text-dark">Live Interactive Mentorship</span>
+                <span className="text-xs font-medium text-text-dark">Live Interactive Mentorship</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="h-6 w-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
@@ -222,7 +286,7 @@ export default function Hero({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-xs font-bold text-text-dark">20+ Production Capstone Projects</span>
+                <span className="text-xs font-medium text-text-dark">20+ Production Capstone Projects</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="h-6 w-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
@@ -230,7 +294,7 @@ export default function Hero({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-xs font-bold text-text-dark">Assured Placement Support</span>
+                <span className="text-xs font-medium text-text-dark">Assured Placement Support</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="h-6 w-6 rounded-full bg-emerald-500/10 text-emerald-600 flex items-center justify-center shrink-0">
@@ -238,7 +302,7 @@ export default function Hero({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-xs font-bold text-text-dark">Global Professional Certification</span>
+                <span className="text-xs font-medium text-text-dark">Global Professional Certification</span>
               </div>
             </div>
 
@@ -260,12 +324,12 @@ export default function Hero({
                 </svg>
               </div>
               <div className="min-w-0 flex-1">
-                <span className={`block text-[9.5px] font-black uppercase tracking-widest leading-none mb-1 ${activeCourse === 'cdec' ? 'text-coral' : 'text-purple'
+                <span className={`block text-[9.5px] font-bold uppercase tracking-widest leading-none mb-1 ${activeCourse === 'cdec' ? 'text-coral' : 'text-purple'
                   }`}>
                   Live Interactive Cohort Schedule
                 </span>
                 <span className="block text-sm sm:text-base font-extrabold text-text-dark tracking-tight leading-tight">
-                  Next Batch Starts: <span className={activeCourse === 'cdec' ? 'text-gradient-coral font-black' : 'text-gradient-purple font-black'}>
+                  Next Batch Starts: <span className={activeCourse === 'cdec' ? 'text-gradient-coral font-bold' : 'text-gradient-purple font-bold'}>
                     {activeCourse === 'cdec' ? (cdecBatch || 'May 25, 2026') : (XDSAAIBatch || 'May 26, 2026')}
                   </span>
                 </span>
@@ -274,7 +338,7 @@ export default function Hero({
               {/* Scarcity / Seats Remaining indicator */}
               <div className="hidden sm:flex flex-col items-end text-right justify-center gap-0.5 pl-4 shrink-0 border-l border-slate-200/80">
                 <span className="text-[9.5px] font-extrabold uppercase text-text-muted tracking-wider leading-none">Seats Left</span>
-                <span className={`text-base font-black animate-pulse ${activeCourse === 'cdec' ? 'text-coral' : 'text-purple'
+                <span className={`text-base font-bold animate-pulse ${activeCourse === 'cdec' ? 'text-coral' : 'text-purple'
                   }`}>
                   {activeCourse === 'cdec' ? (cdecSeats || '04 / 20') : (XDSAAISeats || '06 / 20')}
                 </span>
@@ -287,7 +351,7 @@ export default function Hero({
               {/* Primary Pulsing CTA */}
               <button
                 onClick={() => openModal(activeCourse, 'consultation')}
-                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand text-white font-black text-sm px-8 py-4.5 shadow-xl transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${activeCourse === 'cdec' ? 'shadow-coral/25 shadow-glow-coral' : 'shadow-purple/25 shadow-glow-purple'
+                className={`flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-2xl bg-gradient-brand text-white font-bold text-sm px-8 py-4.5 shadow-xl transition-all cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${activeCourse === 'cdec' ? 'shadow-coral/25 shadow-glow-coral' : 'shadow-purple/25 shadow-glow-purple'
                   }`}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -302,7 +366,7 @@ export default function Hero({
               {/* Secondary CTA: Syllabus trigger */}
               <button
                 onClick={() => openModal(activeCourse, 'syllabus')}
-                className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 hover:border-slate-800 bg-white hover:bg-slate-50 text-text-dark font-black text-sm px-6 py-4.5 transition-all cursor-pointer active:scale-95 shadow-sm"
+                className="flex-1 sm:flex-none flex items-center justify-center gap-2 rounded-2xl border-2 border-slate-200 hover:border-slate-800 bg-white hover:bg-slate-50 text-text-dark font-semibold text-sm px-6 py-4.5 transition-all cursor-pointer active:scale-95 shadow-sm"
               >
                 <svg className="h-4.5 w-4.5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -369,7 +433,7 @@ export default function Hero({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white">15 LPA</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">15 LPA</h3>
             </div>
             <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">Highest Placement Package</span>
             <span className="block text-[10.5px] text-slate-400/90 mt-1">Direct corporate references & interviews</span>
@@ -383,7 +447,7 @@ export default function Hero({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white">400+</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">400+</h3>
             </div>
             <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">Hiring Partner Companies</span>
             <span className="block text-[10.5px] text-slate-400/90 mt-1">Exclusive technical placement pool</span>
@@ -397,7 +461,7 @@ export default function Hero({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white">20+</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">20+</h3>
             </div>
             <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">Capstone Architecture Labs</span>
             <span className="block text-[10.5px] text-slate-400/90 mt-1">Build live corporate portfolio sites</span>
@@ -411,7 +475,7 @@ export default function Hero({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-white">1:1</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white">1:1</h3>
             </div>
             <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">Expert Mentorship & Mock Grids</span>
             <span className="block text-[10.5px] text-slate-400/90 mt-1">Clear technical barriers in real-time</span>
@@ -419,9 +483,9 @@ export default function Hero({
 
         </div>
 
-        {/* Corporate Trust Badge / Placement Marquee Footer */}
+        {/* Corporate Trust Badge / Placement Marquee */}
         <div className="mt-16 sm:mt-24 pt-8 border-t border-slate-200/60 overflow-hidden text-center space-y-5">
-          <span className="text-[10px] sm:text-xs font-black uppercase tracking-widest text-text-muted">
+          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-text-muted">
             Our Graduates Work At High-Growth Organizations Globally
           </span>
 

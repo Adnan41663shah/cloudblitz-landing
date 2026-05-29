@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from 'next/server';
 import clientPromise from '../../../lib/mongodb';
+export const runtime = "nodejs";
 
 const defaultContent = {
   promoText: "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!",

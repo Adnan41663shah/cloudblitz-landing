@@ -354,7 +354,7 @@ export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps)
         <span className="text-[10px] font-extrabold uppercase text-coral tracking-wider bg-coral/10 px-3.5 py-1.5 rounded-full">
           Hands-on Toolkit
         </span>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-text-dark tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-bold text-text-dark tracking-tight font-display">
           Technologies & Tools <span className="text-gradient">You Will Master</span>
         </h2>
         <p className="text-sm sm:text-base text-text-muted">
@@ -390,10 +390,10 @@ export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps)
 
               {/* Title & Description */}
               <div className="space-y-2.5">
-                <h3 className="font-extrabold text-base text-text-dark group-hover:text-coral transition-colors leading-snug">
+                <h3 className="font-semibold text-base text-text-dark group-hover:text-coral transition-colors leading-snug">
                   {tool.name}
                 </h3>
-                <p className="text-xs text-text-muted leading-relaxed font-semibold">
+                <p className="text-xs text-text-muted leading-relaxed font-normal">
                   {tool.description}
                 </p>
               </div>
