@@ -103,6 +103,10 @@ body {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
 }
 
+.glass-nav--glow {
+  background: rgba(255, 255, 255, 0.58);
+}
+
 
 
 .glass-card {
@@ -276,6 +280,45 @@ body {
   animation-play-state: paused;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-left,
+  .animate-scroll-right {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* Placement partner brand cards */
+.partner-brand-card:focus-visible {
+  outline: none;
+}
+
+.marquee-fade-edges::before,
+.marquee-fade-edges::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  height: 100%;
+  width: 4rem;
+  pointer-events: none;
+}
+
+.marquee-fade-edges::before {
+  left: 0;
+  background: linear-gradient(to right, #f4f6f9 0%, transparent 100%);
+}
+
+.marquee-fade-edges::after {
+  right: 0;
+  background: linear-gradient(to left, #f4f6f9 0%, transparent 100%);
+}
+
+/* Elevate marquee row while a partner insight tooltip is open */
+.placement-marquee-row:has(.is-insight-open) {
+  z-index: 30;
+}
+
 /* Smooth Entrance Scale-Up Animation for Overlays & Modals */
 @keyframes scale-up {
   from {
@@ -306,6 +349,225 @@ body {
 
 .shadow-glow-purple {
   box-shadow: 0 10px 30px -10px rgba(143, 47, 226, 0.2), 0 1px 3px rgba(143, 47, 226, 0.05);
+}
+
+/* Cursor-following soft glow (hero, header, etc.) */
+.cursor-glow,
+.hero-cursor-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: min(28rem, 80vw);
+  height: min(28rem, 80vw);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transition: opacity 0.35s ease;
+  border-radius: 50%;
+  filter: blur(44px);
+}
+
+.cursor-glow--compact {
+  width: min(14rem, 42vw);
+  height: min(14rem, 42vw);
+  filter: blur(32px);
+}
+
+.cursor-glow--coral,
+.hero-cursor-glow--coral {
+  background: radial-gradient(
+    circle closest-side,
+    rgba(255, 107, 74, 0.55) 0%,
+    rgba(255, 153, 0, 0.32) 28%,
+    rgba(255, 107, 74, 0.14) 48%,
+    transparent 70%
+  );
+}
+
+.cursor-glow--purple,
+.hero-cursor-glow--purple {
+  background: radial-gradient(
+    circle closest-side,
+    rgba(143, 47, 226, 0.55) 0%,
+    rgba(99, 102, 241, 0.32) 30%,
+    rgba(168, 85, 247, 0.14) 50%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow,
+  .hero-cursor-glow {
+    display: none;
+  }
+}
+
+/* Hero — reveal layout (animation via motion in HeroRevealText) */
+.hero-reveal-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.02em;
+}
+
+.hero-reveal-line {
+  padding-bottom: 0.04em;
+}
+
+.hero-reveal-line__text {
+  will-change: clip-path, transform, filter;
+}
+
+/* Tech Showcase — cursor-following border ray glow */
+.tech-showcase-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --glow-angle: 0deg;
+  --border-glow-opacity: 0;
+  --border-width: 3px;
+  position: relative;
+  border-radius: 1.5rem;
+  padding: var(--border-width);
+  overflow: visible;
+  background: hsl(214 22% 88% / 1);
+  transition: background 0.3s ease;
+}
+
+.tech-showcase-card[data-glow-active='true'] {
+  background: hsl(214 22% 78% / 1);
+}
+
+.tech-showcase-card::before,
+.tech-showcase-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: min(1, calc(var(--border-glow-opacity) * 1.15));
+  transition: opacity 0.3s ease;
+}
+
+.tech-showcase-card::before {
+  background:
+    radial-gradient(
+      200px circle at var(--mouse-x) var(--mouse-y),
+      var(--glow-spot) 0%,
+      var(--glow-primary) 16%,
+      var(--glow-secondary) 32%,
+      transparent 48%
+    ),
+    conic-gradient(
+      from var(--glow-angle) at var(--mouse-x) var(--mouse-y),
+      transparent 0deg,
+      var(--glow-spot) 4deg,
+      var(--glow-primary) 10deg,
+      var(--glow-secondary) 18deg,
+      var(--glow-primary) 26deg,
+      transparent 38deg
+    );
+}
+
+.tech-showcase-card::after {
+  inset: -2px;
+  background: radial-gradient(
+    160px circle at var(--mouse-x) var(--mouse-y),
+    var(--glow-spot) 0%,
+    var(--glow-primary) 28%,
+    var(--glow-secondary) 45%,
+    transparent 58%
+  );
+  filter: blur(10px);
+  opacity: min(1, calc(var(--border-glow-opacity) * 0.95));
+}
+
+.tech-showcase-card__surface {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  border-radius: calc(1.5rem - var(--border-width));
+  background: hsl(0 0% 100% / 0.94);
+  transition: background-color 0.35s ease;
+}
+
+.tech-showcase-card[data-glow-active='true'] .tech-showcase-card__surface {
+  background: hsl(0 0% 100% / 1);
+}
+
+.tech-showcase-card--cyan {
+  --glow-spot: #67e8f9;
+  --glow-primary: #06b6d4;
+  --glow-secondary: #4f46e5;
+}
+
+.tech-showcase-card--blue {
+  --glow-spot: #93c5fd;
+  --glow-primary: #2563eb;
+  --glow-secondary: #6366f1;
+}
+
+.tech-showcase-card--purple {
+  --glow-spot: #c4b5fd;
+  --glow-primary: #7c3aed;
+  --glow-secondary: #db2777;
+}
+
+.tech-showcase-card--green {
+  --glow-spot: #6ee7b7;
+  --glow-primary: #059669;
+  --glow-secondary: #0891b2;
+}
+
+.tech-showcase-card--orange {
+  --glow-spot: #fdba74;
+  --glow-primary: #ea580c;
+  --glow-secondary: #e11d48;
+}
+
+.tech-showcase-card--red {
+  --glow-spot: #fca5a5;
+  --glow-primary: #dc2626;
+  --glow-secondary: #ea580c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-showcase-card::before,
+  .tech-showcase-card::after {
+    transition: none;
+  }
+}
+
+/* Video testimonials — smooth horizontal scroll, hidden scrollbar */
+.video-testimonials-track {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.video-testimonials-track::-webkit-scrollbar {
+  display: none;
+}
+
+.video-testimonial-card {
+  flex: 0 0 calc(50% - 0.375rem);
+  max-width: calc(50% - 0.375rem);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .video-testimonial-card {
+    flex: 0 0 calc(50% - 0.5rem);
+    max-width: calc(50% - 0.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .video-testimonial-card {
+    flex: 0 0 calc(25% - 0.9375rem);
+    max-width: calc(25% - 0.9375rem);
+  }
 }
 
 /* Code typing cursor effect */

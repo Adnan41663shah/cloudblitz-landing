@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import VideoTestimonialThumbnail from './VideoTestimonialThumbnail';
+import { toYouTubeWatchUrl } from '@/lib/youtube';
 interface Review {
   name: string;
   role: string;
@@ -66,8 +67,240 @@ const placements: Placement[] = [
   { name: 'Sumedh Joshi', role: 'DevOps Engineer', package: '6.6 LPA', numericPackage: 6.6 },
   { name: 'Amrita Chouhan', role: 'Software Engineer', package: '6.5 LPA', numericPackage: 6.5 },
   { name: 'Tushar Shinde', role: 'DevOps Engineer', package: '6 LPA', numericPackage: 6.0 },
-  { name: 'Bharat Biradar', role: 'Solution Engineer', package: '4.8 LPA', numericPackage: 4.8 }
+  { name: 'Bharat Biradar', role: 'Solution Engineer', package: '4.8 LPA', numericPackage: 4.8 },
 ];
+
+interface VideoTestimonial {
+  id: string;
+  name: string;
+  location: string;
+  role: string;
+  package: string;
+  /** YouTube watch, Shorts, or youtu.be link — thumbnail is derived automatically */
+  youtubeUrl: string;
+}
+
+const videoTestimonials: VideoTestimonial[] = [
+  {
+    id: 'vt-1',
+    name: 'Aditya Kadu',
+    location: 'Pune, Maharashtra',
+    role: 'Associate Product Engineer',
+    package: '18 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/Aa69-dE9Qz4',
+  },
+  {
+    id: 'vt-2',
+    name: 'Samiksha Meshram',
+    location: 'Nagpur, Maharashtra',
+    role: 'SRE Engineer',
+    package: '11 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/on4_Rp3KJ_g',
+  },
+  {
+    id: 'vt-3',
+    name: 'Atharva Keskar',
+    location: 'Mumbai, Maharashtra',
+    role: 'Associate DevOps Engineer',
+    package: '9.5 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/N0ig6w-QG_k',
+  },
+  {
+    id: 'vt-4',
+    name: 'Tanishq Vaishnav',
+    location: 'Indore, Madhya Pradesh',
+    role: 'Senior DevOps Engineer',
+    package: '11 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/EngW7tLk6R8',
+  },
+  {
+    id: 'vt-5',
+    name: 'Apurva Donge',
+    location: 'Hyderabad, Telangana',
+    role: 'Senior Software Engineer',
+    package: '11 LPA',
+    youtubeUrl: 'https://www.youtube.com/watch?v=ysz5S6PUM-U',
+  },
+  {
+    id: 'vt-6',
+    name: 'Siddharth Mulay',
+    location: 'Bengaluru, Karnataka',
+    role: 'DevOps Engineer',
+    package: '13 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/jNQXAC9IVRw',
+  },
+  {
+    id: 'vt-7',
+    name: 'Simran Dhoke',
+    location: 'Ahmedabad, Gujarat',
+    role: 'Senior Azure Consultant',
+    package: '9 LPA',
+    youtubeUrl: 'https://youtu.be/aqz-KE-bpKQ',
+  },
+  {
+    id: 'vt-8',
+    name: 'Shiv Verma',
+    location: 'Delhi NCR, India',
+    role: 'Software Engineer',
+    package: '9 LPA',
+    youtubeUrl: 'https://www.youtube.com/shorts/LXb3EKWsInQ',
+  },
+];
+
+function VideoTestimonialsRow() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const updateScrollButtons = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = track;
+    setCanScrollLeft(scrollLeft > 8);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 8);
+  }, []);
+
+  const scrollByCards = useCallback((direction: 'left' | 'right') => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.querySelector<HTMLElement>('.video-testimonial-card');
+    const gap = Number.parseFloat(getComputedStyle(track).gap || '16') || 16;
+    const step = firstCard ? firstCard.offsetWidth + gap : track.clientWidth * 0.85;
+
+    track.scrollBy({
+      left: direction === 'left' ? -step : step,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    updateScrollButtons();
+
+    track.addEventListener('scroll', updateScrollButtons, { passive: true });
+    window.addEventListener('resize', updateScrollButtons);
+
+    const resizeObserver = new ResizeObserver(updateScrollButtons);
+    resizeObserver.observe(track);
+
+    return () => {
+      track.removeEventListener('scroll', updateScrollButtons);
+      window.removeEventListener('resize', updateScrollButtons);
+      resizeObserver.disconnect();
+    };
+  }, [updateScrollButtons]);
+
+  const navButtonClass =
+    'video-testimonials-nav flex shrink-0 items-center justify-center rounded-full border border-border-light bg-white text-text-dark shadow-md transition-all duration-200 hover:border-coral/40 hover:bg-coral/5 hover:text-coral active:scale-95 disabled:pointer-events-none disabled:opacity-30 disabled:shadow-none';
+
+  return (
+    <div className="mt-14 sm:mt-16">
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span className="text-[10px] font-extrabold uppercase tracking-wider text-coral">
+            Video Stories
+          </span>
+          <h3 className="mt-1.5 text-xl font-bold tracking-tight text-text-dark sm:text-2xl">
+            Watch graduates share their journey
+          </h3>
+        </div>
+        <p className="text-xs font-medium text-text-muted sm:text-right">
+          Use arrows or scroll • Tap a card to watch on YouTube
+        </p>
+      </div>
+
+      <div className="flex items-center gap-2 sm:gap-3">
+        <button
+          type="button"
+          onClick={() => scrollByCards('left')}
+          disabled={!canScrollLeft}
+          aria-label="Scroll video testimonials left"
+          className={`${navButtonClass} h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11`}
+        >
+          <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <div className="relative min-w-0 flex-1">
+          <div
+            className="pointer-events-none absolute left-0 top-0 z-10 h-full w-4 bg-gradient-to-r from-bg-main to-transparent sm:w-6"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute right-0 top-0 z-10 h-full w-4 bg-gradient-to-l from-bg-main to-transparent sm:w-6"
+            aria-hidden
+          />
+
+          <div
+            ref={trackRef}
+            className="video-testimonials-track flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain scroll-smooth pb-2 sm:gap-4 lg:gap-5"
+          >
+            {videoTestimonials.map((video) => (
+              <a
+                key={video.id}
+                href={toYouTubeWatchUrl(video.youtubeUrl)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="video-testimonial-card group/card snap-start rounded-2xl border border-border-light bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-coral/30 hover:shadow-xl sm:rounded-3xl"
+                aria-label={`Watch ${video.name}'s success story on YouTube`}
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-[inherit] bg-slate-200">
+                  <VideoTestimonialThumbnail
+                    youtubeUrl={video.youtubeUrl}
+                    alt={`${video.name} video testimonial`}
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/25 to-slate-950/10 transition-opacity duration-300 group-hover/card:from-slate-950/90" />
+
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-coral shadow-lg ring-4 ring-white/30 transition-all duration-300 group-hover/card:scale-110 sm:h-12 sm:w-12">
+                      <svg className="ml-0.5 h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                  <span className="absolute right-2.5 top-2.5 rounded-lg bg-black/55 px-2 py-1 text-[10px] font-bold uppercase tracking-wide text-white backdrop-blur-sm sm:right-3 sm:top-3">
+                    {video.package}
+                  </span>
+
+                  <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                    <p className="text-sm font-bold leading-tight text-white sm:text-base">{video.name}</p>
+                    <p className="mt-0.5 text-[11px] font-medium text-white/85 sm:text-xs">{video.role}</p>
+                    <p className="mt-1.5 flex items-center gap-1 text-[10px] font-semibold text-white/75 sm:text-[11px]">
+                      <svg className="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {video.location}
+                    </p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => scrollByCards('right')}
+          disabled={!canScrollRight}
+          aria-label="Scroll video testimonials right"
+          className={`${navButtonClass} h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11`}
+        >
+          <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function PlacementsAndReviews() {
   const [filter, setFilter] = useState<'all' | 'high' | 'mid'>('all');
@@ -148,7 +381,7 @@ export default function PlacementsAndReviews() {
             Hear from our <span className="text-gradient">Successful Graduates</span>
           </h2>
           <p className="text-sm sm:text-base text-text-muted">
-            Read direct stories of how Cloudblitz's live interactive labs, structured syllabus, and committed support enabled successful career changes.
+            Read direct stories of how Cloudblitz&apos;s live interactive labs, structured syllabus, and committed support enabled successful career changes.
           </p>
         </div>
 
@@ -174,7 +407,7 @@ export default function PlacementsAndReviews() {
                 </div>
 
                 <p className="text-xs sm:text-sm text-text-medium leading-relaxed font-normal italic font-serif">
-                  "{rev.text}"
+                  &quot;{rev.text}&quot;
                 </p>
               </div>
 
@@ -193,6 +426,9 @@ export default function PlacementsAndReviews() {
             </div>
           ))}
         </div>
+
+        {/* Video testimonials — horizontal scroll (2 visible mobile, 4 desktop) */}
+        <VideoTestimonialsRow />
       </div>
 
       {/* SECTION 2: RECENT PLACEMENT TRACKS */}

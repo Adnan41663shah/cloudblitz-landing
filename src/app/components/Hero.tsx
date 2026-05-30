@@ -1,34 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
 import { CourseType } from '../types';
 import HeroLeadForm from './HeroLeadForm';
 import { CardStarsBackground } from '@/components/ui/card-stars';
-import { motion } from 'motion/react';
-import { SiAccenture, SiTata, SiNetflix, SiIntel, SiCisco, SiDell, SiHp, SiSamsung, SiSony } from "react-icons/si";
-import { FaGoogle, FaMicrosoft, FaAmazon, FaAws, FaApple, FaFacebook, FaSpotify } from "react-icons/fa";
-
-const row1Logos = [
-  { Icon: FaGoogle, name: 'Google' },
-  { Icon: FaMicrosoft, name: 'Microsoft' },
-  { Icon: FaAmazon, name: 'Amazon' },
-  { Icon: SiAccenture, name: 'Accenture' },
-  { Icon: SiTata, name: 'Tata Consultancy Services' },
-  { Icon: FaAws, name: 'Amazon Web Services' },
-  { Icon: FaApple, name: 'Apple' },
-  { Icon: FaFacebook, name: 'Meta' },
-];
-
-const row2Logos = [
-  { Icon: FaSpotify, name: 'Spotify' },
-  { Icon: SiNetflix, name: 'Netflix' },
-  { Icon: SiIntel, name: 'Intel' },
-  { Icon: SiCisco, name: 'Cisco' },
-  { Icon: SiDell, name: 'Dell' },
-  { Icon: SiHp, name: 'Hewlett-Packard' },
-  { Icon: SiSamsung, name: 'Samsung' },
-  { Icon: SiSony, name: 'Sony' },
-];
+import { useCursorGlow } from '../hooks/useCursorGlow';
+import {
+  HeroRevealDescription,
+  HeroRevealHeading,
+  HeroRevealLine,
+} from './HeroRevealText';
 
 interface HeroProps {
   activeCourse: CourseType;
@@ -40,31 +20,6 @@ interface HeroProps {
   XDSAAISeats?: string;
 }
 
-const headingContainerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.05,
-    }
-  }
-};
-
-const headingWordVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 12,
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      type: "spring" as const,
-      damping: 22,
-      stiffness: 150,
-    }
-  }
-};
-
 export default function Hero({
   activeCourse,
   openModal,
@@ -73,123 +28,26 @@ export default function Hero({
   XDSAAIBatch,
   XDSAAISeats
 }: HeroProps) {
-  // Simulated logs state for DevOps console
-  const [devopsLogs, setDevopsLogs] = useState<string[]>([]);
-  // Simulated logs state for Data Science console
-  const [dsLogs, setDsLogs] = useState<string[]>([]);
-  // Dynamic metrics stats to animate
-  const [accuracyValue, setAccuracyValue] = useState(0);
-
-  const renderHeading = (text: string, isCdec: boolean) => {
-    const keyword = isCdec ? "Cloud & DevOps" : "Data Science & AI";
-    if (text.includes(keyword)) {
-      const parts = text.split(keyword);
-      return (
-        <>
-          {parts[0]}
-          <span className={`relative inline-block ${isCdec ? 'hero-keyword-coral' : 'hero-keyword-purple'}`}>
-            <span className={isCdec ? 'text-gradient-coral font-bold' : 'text-gradient-purple font-bold'}>
-              {keyword}
-            </span>
-            <span className={`absolute -bottom-1 left-0 right-0 h-[3px] rounded-full ${isCdec ? 'bg-gradient-to-r from-coral to-orange-400' : 'bg-gradient-to-r from-purple to-pink-400'} opacity-60`} />
-          </span>
-          {parts[1]}
-        </>
-      );
-    }
-    return text;
-  };
-
-  // DevOps simulated terminal log loop
-  useEffect(() => {
-    if (activeCourse !== 'cdec') return;
-
-    const logsList = [
-      'cloudblitz-engine v1.8.4 starting pipeline...',
-      '$ terraform init && terraform apply -auto-approve',
-      '⟲ Initializing AWS and Azure cloud providers...',
-      '✓ AWS Virtual Private Cloud (VPC) & subnets configured.',
-      '✓ Security groups and RDS database instances established.',
-      '$ docker build -t web-app:latest . && docker push',
-      '✓ Containerizing application: Multi-stage Docker build success.',
-      '✓ Pushing container image to secure cloud registry...',
-      '$ kubectl apply -f k8s/deployment.yaml',
-      '✓ Standardizing cluster scale: 5 active replicas requested.',
-      '⟲ Spinning up Kubernetes pods... [Pod 1-5 STATUS: Running]',
-      '✓ Ingress controller routing active on standard HTTP/S.',
-      '✓ Datadog observability agents: Connected & streaming logs.',
-      '✓ pipeline-deploy: PIPELINE COMPLETE [SUCCESS]'
-    ];
-
-    setDevopsLogs([]);
-    let logIndex = 0;
-
-    const interval = setInterval(() => {
-      if (logIndex < logsList.length) {
-        const nextLog = logsList[logIndex];
-        if (nextLog !== undefined) {
-          setDevopsLogs((prev) => [...prev, nextLog]);
-        }
-        logIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 1400);
-
-    return () => clearInterval(interval);
-  }, [activeCourse]);
-
-  // Data Science simulated terminal log loop + metric animator
-  useEffect(() => {
-    if (activeCourse !== 'X-DSAAI') return;
-
-    const logsList = [
-      'cloudblitz-ai-sandbox v2.0.1 loading components...',
-      '$ python train_model.py --epochs 50 --lr 0.001',
-      '⟲ Loading train dataset: 1,250,000 feature arrays...',
-      '⟲ Initializing weight distributions & deep tensor matrices...',
-      '↳ Epoch 10/50: loss: 0.284 | accuracy: 89.15%',
-      '↳ Epoch 20/50: loss: 0.142 | accuracy: 93.88%',
-      '↳ Epoch 30/50: loss: 0.076 | accuracy: 96.02%',
-      '↳ Epoch 40/50: loss: 0.038 | accuracy: 97.41%',
-      '↳ Epoch 50/50: loss: 0.012 | accuracy: 98.42%',
-      '✓ Model convergence achieved. Optimizers completed training.',
-      '$ python evaluate.py --model_weights=weights.pt',
-      '✓ Evaluation Metrics: Precision: 97.8% | Recall: 98.1%',
-      '✓ Model weights exported. AI API service ready in cloud sandbox.'
-    ];
-
-    setDsLogs([]);
-    setAccuracyValue(0);
-    let logIndex = 0;
-
-    // Animate radial accuracy chart to 98%
-    const accuracyTimer = setTimeout(() => {
-      setAccuracyValue(98);
-    }, 300);
-
-    const logInterval = setInterval(() => {
-      if (logIndex < logsList.length) {
-        const nextLog = logsList[logIndex];
-        if (nextLog !== undefined) {
-          setDsLogs((prev) => [...prev, nextLog]);
-        }
-        logIndex++;
-      } else {
-        clearInterval(logInterval);
-      }
-    }, 1500);
-
-    return () => {
-      clearTimeout(accuracyTimer);
-      clearInterval(logInterval);
-    };
-  }, [activeCourse]);
+  const { containerRef: heroRef, glowRef, glowVariant } = useCursorGlow(activeCourse);
 
   return (
-    <section id="hero" className="relative w-full overflow-hidden bg-bg-main bg-dot-pattern pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pt-8 lg:pb-24 border-b border-slate-100">
+    <section
+      id="hero"
+      ref={heroRef}
+      className="relative isolate w-full overflow-hidden border-b border-slate-100 pt-4 pb-12 sm:pt-6 sm:pb-16 lg:pt-8 lg:pb-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 z-0 bg-bg-main bg-dot-pattern"
+        aria-hidden
+      />
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        ref={glowRef}
+        aria-hidden
+        className={`cursor-glow hero-cursor-glow hero-cursor-glow--${glowVariant} cursor-glow--${glowVariant}`}
+      />
+
+      <div className="relative z-[2] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Layout Grid: Left Content, Right Live Workspace Dashboard */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -203,71 +61,55 @@ export default function Hero({
               <span className="uppercase tracking-widest text-[9px] font-black text-text-muted">Interactive Classroom to Corporate Track</span>
             </div>
 
-            {/* Dynamic Bolder Headings with Smooth Word-by-Word Reveal */}
+            {/* Headings & description — left-to-right mask reveal */}
             <div className="space-y-4">
               {activeCourse === 'cdec' ? (
-                <motion.h1
-                  key="cdec-heading"
-                  variants={headingContainerVariants}
-                  initial="hidden"
-                  animate="visible"
+                <HeroRevealHeading
+                  revealKey="cdec-heading"
                   className="text-4xl sm:text-5xl lg:text-[50px] font-bold tracking-wider text-text-dark leading-[1.08] font-display"
                 >
-                  {["Become", "a"].map((word, i) => (
-                    <motion.span key={`cdec-word-pre-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em]">
-                      {word}
-                    </motion.span>
-                  ))}
-                  <motion.span variants={headingWordVariants} className="inline-block mr-[0.22em]">
-                    <span className="relative">
-                      <span className="text-gradient font-bold">Production-Ready</span>
-                    </span>
-                  </motion.span>
-                  {["Cloud", "DevOps", "Engineer."].map((word, i) => (
-                    <motion.span key={`cdec-word-post-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em] last:mr-0">
-                      {word}
-                    </motion.span>
-                  ))}
-                </motion.h1>
+                  <HeroRevealLine lineKey={`${activeCourse}-h1`} delay={0}>
+                    Become a
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h2`} delay={0.12}>
+                    <span className="text-gradient font-bold">Production-Ready</span>
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h3`} delay={0.24}>
+                    Cloud DevOps
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h4`} delay={0.36}>
+                    Engineer.
+                  </HeroRevealLine>
+                </HeroRevealHeading>
               ) : (
-                <motion.h1
-                  key="xdsaai-heading"
-                  variants={headingContainerVariants}
-                  initial="hidden"
-                  animate="visible"
+                <HeroRevealHeading
+                  revealKey="xdsaai-heading"
                   className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-wider text-text-dark leading-[1.08] font-display"
                 >
-                  {["Become", "an"].map((word, i) => (
-                    <motion.span key={`ds-word-pre-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em]">
-                      {word}
-                    </motion.span>
-                  ))}
-                  <motion.span variants={headingWordVariants} className="inline-block mr-[0.22em]">
-                    <span className="relative">
-                      <span className="text-gradient font-bold">Industry-Ready</span>
-                    </span>
-                  </motion.span>
-                  {["Data", "Scientist", "&", "AI", "Expert."].map((word, i) => (
-                    <motion.span key={`ds-word-post-${i}`} variants={headingWordVariants} className="inline-block mr-[0.22em] last:mr-0">
-                      {word === "&" ? "&" : word}
-                    </motion.span>
-                  ))}
-                </motion.h1>
+                  <HeroRevealLine lineKey={`${activeCourse}-h1`} delay={0}>
+                    Become an
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h2`} delay={0.12}>
+                    <span className="text-gradient font-bold">Industry-Ready</span>
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h3`} delay={0.24}>
+                    Data Scientist &amp;
+                  </HeroRevealLine>
+                  <HeroRevealLine lineKey={`${activeCourse}-h4`} delay={0.36}>
+                    AI Expert.
+                  </HeroRevealLine>
+                </HeroRevealHeading>
               )}
 
-              {/* Dynamic Description Paragraph with Delayed Fade-in */}
-              <motion.p
-                key={activeCourse === 'cdec' ? 'cdec-desc' : 'xdsaai-desc'}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.35, ease: "easeOut" }}
+              <HeroRevealDescription
+                revealKey={activeCourse === 'cdec' ? 'cdec-desc' : 'xdsaai-desc'}
+                delay={0.52}
                 className="max-w-2xl text-base sm:text-lg text-text-medium leading-relaxed font-normal"
               >
                 {activeCourse === 'cdec'
-                  ? "Gain hands-on expertise in AWS, Azure, Docker, Kubernetes, Terraform, Jenkins, and Git. Learn real pipelines, automated testing, and secure infrastructure deployment under professional guidance with 100% placement support."
-                  : "Master Python, SQL, statistics, machine learning, deep learning, and AI-driven analytics. Gain high-demand expertise in Tableau, Power BI, Hadoop, Spark, R-Programming, and cloud platforms like AWS and Google Cloud through hands-on projects."
-                }
-              </motion.p>
+                  ? 'Gain hands-on expertise in AWS, Azure, Docker, Kubernetes, Terraform, Jenkins, and Git. Learn real pipelines, automated testing, and secure infrastructure deployment under professional guidance with 100% placement support.'
+                  : 'Master Python, SQL, statistics, machine learning, deep learning, and AI-driven analytics. Gain high-demand expertise in Tableau, Power BI, Hadoop, Spark, R-Programming, and cloud platforms like AWS and Google Cloud through hands-on projects.'}
+              </HeroRevealDescription>
             </div>
 
             {/* Trust and Key Value Bullets */}
@@ -480,51 +322,6 @@ export default function Hero({
             <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">Expert Mentorship & Mock Grids</span>
             <span className="block text-[10.5px] text-slate-400/90 mt-1">Clear technical barriers in real-time</span>
           </CardStarsBackground>
-
-        </div>
-
-        {/* Corporate Trust Badge / Placement Marquee */}
-        <div className="mt-16 sm:mt-24 pt-8 border-t border-slate-200/60 overflow-hidden text-center space-y-5">
-          <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-text-muted">
-            Our Graduates Work At High-Growth Organizations Globally
-          </span>
-
-          {/* Infinite Moving Logo Cloud */}
-          <div className="relative w-full overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 before:bg-gradient-to-r before:from-bg-main before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 after:bg-gradient-to-l after:from-bg-main after:to-transparent flex flex-col gap-6 py-4">
-
-            {/* Row 1: Moving Left */}
-            <div className="animate-scroll-left hover:pause-scroll-on-hover flex items-center gap-14 sm:gap-20 w-max pt-4">
-              {[1, 2].map((loop) => (
-                <React.Fragment key={loop}>
-                  {row1Logos.map((logo, index) => (
-                    <div key={`${loop}-${index}`} className="group relative text-slate-400 hover:text-slate-900 transition-colors opacity-70 hover:opacity-100 shrink-0 flex justify-center cursor-pointer">
-                      <logo.Icon className="w-8 h-8 sm:w-10 sm:h-10" />
-                      <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-100 text-[10px] sm:text-xs font-black text-slate-800 z-50 translate-y-2 group-hover:translate-y-0">
-                        {logo.name}
-                      </div>
-                    </div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
-
-            {/* Row 2: Moving Right */}
-            <div className="animate-scroll-right hover:pause-scroll-on-hover flex items-center gap-14 sm:gap-20 w-max pb-4">
-              {[1, 2].map((loop) => (
-                <React.Fragment key={loop}>
-                  {row2Logos.map((logo, index) => (
-                    <div key={`${loop}-${index}`} className="group relative text-slate-400 hover:text-slate-900 transition-colors opacity-70 hover:opacity-100 shrink-0 flex justify-center cursor-pointer">
-                      <logo.Icon className="w-8 h-8 sm:w-10 sm:h-10" />
-                      <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap bg-white px-3 py-1.5 rounded-lg shadow-lg border border-slate-100 text-[10px] sm:text-xs font-black text-slate-800 z-50 translate-y-2 group-hover:translate-y-0">
-                        {logo.name}
-                      </div>
-                    </div>
-                  ))}
-                </React.Fragment>
-              ))}
-            </div>
-
-          </div>
 
         </div>
 

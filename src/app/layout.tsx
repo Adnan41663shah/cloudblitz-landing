@@ -65,9 +65,12 @@ export const metadata: Metadata = {
     description: "Transition into elite tech engineering roles. Live mentorship, sandbox sandboxes, and dedicated mock interview reviews.",
   },
   icons: {
-    icon: "/cloudblitz-logo.webp",
-    shortcut: "/cloudblitz-logo.webp",
-    apple: "/cloudblitz-logo.webp",
+    icon: [
+      { url: '/assets/cloudblitz-logo.webp', type: 'image/webp', sizes: '512x512' },
+      { url: '/cloudblitz-logo.webp', type: 'image/webp', sizes: '512x512' },
+    ],
+    shortcut: '/assets/cloudblitz-logo.webp',
+    apple: '/assets/cloudblitz-logo.webp',
   },
   appleWebApp: {
     capable: true,
@@ -118,6 +121,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        <link rel="icon" href="/assets/cloudblitz-logo.webp" type="image/webp" sizes="512x512" />
+        <link rel="shortcut icon" href="/assets/cloudblitz-logo.webp" type="image/webp" />
+        <link rel="apple-touch-icon" href="/assets/cloudblitz-logo.webp" />
         {/* Inject JSON-LD Schema to facilitate Google Search Rich Snippets */}
         <script
           type="application/ld+json"

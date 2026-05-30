@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { CourseType, ModalPurpose } from '../types';
+import { useSyllabusDownload } from './SyllabusDownloadToast';
 
 interface LeadFormModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ const COUNTRIES = [
 ];
 
 export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purpose = 'consultation', promoText }: LeadFormModalProps) {
+  const { runSyllabusDownloadFlow } = useSyllabusDownload();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [countryCode, setCountryCode] = useState('+91');
@@ -91,6 +93,23 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
     e.preventDefault();
     if (!validate()) return;
 
+    if (purpose === 'syllabus') {
+      setLoading(true);
+      setErrors({});
+      onClose();
+      await runSyllabusDownloadFlow({
+        name,
+        email: email.trim() || undefined,
+        countryCode,
+        phone,
+        experience,
+        course,
+        purpose,
+      });
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setErrors({});
 
@@ -118,8 +137,7 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
       if (response.ok && data.success) {
         setSuccess(true);
 
-        // Trigger automatic PDF download for syllabus
-        if (purpose === 'syllabus' || purpose === 'quick') {
+        if (purpose === 'quick') {
           const fileName = course === 'cdec' ? 'CDEC-AI.pdf' : 'X-DSAAI.pdf';
           const fileUrl = `/assets/${fileName}`;
 
@@ -388,7 +406,15 @@ export default function LeadFormModal({ isOpen, onClose, preselectedCourse, purp
                 disabled={loading}
                 className="mt-2.5 w-full flex items-center justify-center gap-1.5 rounded-2xl bg-gradient-brand py-3 text-sm sm:text-base font-black text-white shadow-lg shadow-coral/20 hover:shadow-coral/35 active:scale-[0.98] transition-all disabled:opacity-50 cursor-pointer"
               >
-                {loading ? (
+                {loading && purpose === 'syllabus' ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    <span>Starting download…</span>
+                  </>
+                ) : loading ? (
                   <>
                     <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />

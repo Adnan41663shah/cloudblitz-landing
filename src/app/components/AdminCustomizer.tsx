@@ -30,7 +30,7 @@ export default function AdminCustomizer({
     category: 'general' as 'general' | 'placement' | 'curriculum' | 'pricing'
   });
 
-  const handleTextChange = (key: keyof SiteContent, value: any) => {
+  const handleTextChange = (key: keyof SiteContent, value: string) => {
     onUpdateContent({
       ...content,
       [key]: value,
@@ -116,7 +116,7 @@ export default function AdminCustomizer({
       {/* Floating Admin Badge Trigger */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed left-4 bottom-4 z-40 bg-slate-950 hover:bg-slate-900 text-white font-extrabold border border-white/10 shadow-2xl p-3.5 rounded-full flex items-center gap-2 cursor-pointer shadow-coral/10 hover:scale-105 active:scale-95 transition-all text-xs tracking-tight uppercase"
+        className="fixed left-4 bottom-4 z-40 bg-slate-950 hover:bg-slate-900 text-white border border-white/10 shadow-2xl p-3.5 rounded-full flex items-center gap-2 cursor-pointer shadow-coral/10 hover:scale-105 active:scale-95 transition-all text-xs tracking-tight uppercase"
       >
         <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
         <svg className="h-4 w-4 animate-spin-slow text-coral" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -331,7 +331,7 @@ export default function AdminCustomizer({
                 <div className="flex gap-2">
                   <select
                     value={newFaq.category}
-                    onChange={(e) => setNewFaq({ ...newFaq, category: e.target.value as any })}
+                    onChange={(e) => setNewFaq({ ...newFaq, category: e.target.value as 'general' | 'placement' | 'curriculum' | 'pricing' })}
                     className="flex-1 rounded-xl border border-white/10 bg-slate-900 p-2 text-xs"
                   >
                     <option value="general">Eligibility & General</option>

@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import { useCursorGlow } from '../hooks/useCursorGlow';
 import { CourseType, ModalPurpose } from '../types';
 import logoImg from '../assets/logo.webp';
 import whatsappIcon from '../assets/whatsapp-color-svgrepo-com.svg';
@@ -25,30 +26,37 @@ export default function Header({
   promoTimeMinutes,
   promoTimeSeconds
 }: HeaderProps) {
-  const isInitialZero = (promoTimeHours === 0 && promoTimeMinutes === 0 && promoTimeSeconds === 0);
-  const [promoVisible, setPromoVisible] = useState(!isInitialZero);
+  const { containerRef: headerGlowRef, glowRef, glowVariant } = useCursorGlow(activeCourse);
+
+  const propTime = useMemo(
+    () => ({
+      hours: promoTimeHours ?? 5,
+      minutes: promoTimeMinutes ?? 42,
+      seconds: promoTimeSeconds ?? 19,
+    }),
+    [promoTimeHours, promoTimeMinutes, promoTimeSeconds],
+  );
+
+  const propTimeKey = `${promoTimeHours ?? ''}-${promoTimeMinutes ?? ''}-${promoTimeSeconds ?? ''}`;
+
+  const [timeLeft, setTimeLeft] = useState(propTime);
+  const [promoDismissed, setPromoDismissed] = useState(false);
+  const [lastPropTimeKey, setLastPropTimeKey] = useState(propTimeKey);
+
+  // Reset countdown when admin updates promo timer props (during render, not in an effect)
+  if (lastPropTimeKey !== propTimeKey) {
+    setLastPropTimeKey(propTimeKey);
+    setTimeLeft(propTime);
+    setPromoDismissed(false);
+  }
+
+  const isTimeUp =
+    timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0;
+
+  const promoVisible = !promoDismissed && !isTimeUp;
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  // Countdown Timer state: hours, minutes, seconds
-  const [timeLeft, setTimeLeft] = useState({
-    hours: promoTimeHours ?? 5,
-    minutes: promoTimeMinutes ?? 42,
-    seconds: promoTimeSeconds ?? 19
-  });
-
-  // Sync timeLeft when props change (so edits in admin console reflect immediately)
-  useEffect(() => {
-    const h = promoTimeHours ?? 5;
-    const m = promoTimeMinutes ?? 42;
-    const s = promoTimeSeconds ?? 19;
-    setTimeLeft({ hours: h, minutes: m, seconds: s });
-    if (h === 0 && m === 0 && s === 0) {
-      setPromoVisible(false);
-    } else {
-      setPromoVisible(true);
-    }
-  }, [promoTimeHours, promoTimeMinutes, promoTimeSeconds]);
 
   // Scroll event detector for dynamic sticky header transitions
   useEffect(() => {
@@ -65,7 +73,6 @@ export default function Header({
       setTimeLeft((prev) => {
         if (prev.hours === 0 && prev.minutes === 0 && prev.seconds === 0) {
           clearInterval(timer);
-          setPromoVisible(false);
           return prev;
         }
 
@@ -75,11 +82,10 @@ export default function Header({
           return { hours: prev.hours, minutes: prev.minutes - 1, seconds: 59 };
         } else if (prev.hours > 0) {
           return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else {
-          clearInterval(timer);
-          setPromoVisible(false);
-          return { hours: 0, minutes: 0, seconds: 0 };
         }
+
+        clearInterval(timer);
+        return { hours: 0, minutes: 0, seconds: 0 };
       });
     }, 1000);
     return () => clearInterval(timer);
@@ -114,7 +120,7 @@ export default function Header({
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 relative z-10 text-center sm:text-left">
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 rounded-full bg-yellow-400 animate-ping shrink-0" />
-              <span className="tracking-tight font-extrabold">{promoText || "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!"}</span>
+              <span className="tracking-loose font-extrabold">{promoText || "✨ May Special: Get 27% OFF + Free 1-on-1 Mock Interviews!"}</span>
             </div>
             <button
               onClick={() => openModal(activeCourse, 'offer')}
@@ -142,7 +148,7 @@ export default function Header({
             </div>
 
             <button
-              onClick={() => setPromoVisible(false)}
+              onClick={() => setPromoDismissed(true)}
               className="absolute sm:relative top-2 sm:top-auto right-3 sm:right-auto text-white/60 hover:text-white transition-colors duration-200 p-0.5 rounded-md hover:bg-white/10"
               aria-label="Dismiss banner"
             >
@@ -155,14 +161,21 @@ export default function Header({
       )}
 
       {/* 2. Glassmorphic main Navigation bar (Sticky) */}
-      <div className={`w-full z-50 transition-all duration-300 sticky top-0 bg-transparent ${scrolled
-        ? 'py-2.5'
-        : 'py-4'
-        }`}>
+      <div
+        className={`w-full z-50 transition-all duration-300 sticky top-0 bg-transparent ${scrolled ? 'py-2.5' : 'py-0'}`}
+      >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <nav className={`glass-nav rounded-4xl flex items-center justify-between px-6 transition-all duration-300 ${scrolled ? 'h-16 md:h-17 shadow-md' : 'h-18 md:h-20 shadow-sm'
-            }`}>
+          <nav
+            ref={headerGlowRef}
+            className={`glass-nav glass-nav--glow relative isolate overflow-hidden rounded-4xl flex items-center justify-between px-6 transition-all duration-300 h-16 md:h-17 shadow-md`}
+          >
+            <div
+              ref={glowRef}
+              aria-hidden
+              className={`cursor-glow cursor-glow--compact cursor-glow--${glowVariant}`}
+            />
 
+            <div className="relative z-[2] flex w-full items-center justify-between">
             {/* Logo Branding with soft ambient hover glow */}
             <a
               href="https://cloudblitz.in/"
@@ -183,14 +196,14 @@ export default function Header({
             <div className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-semibold text-text-medium">
               <button
                 onClick={() => scrollToSection('highlights')}
-                className="relative py-2 px-3 text-xs xl:text-sm font-extrabold text-text-medium hover:text-text-dark transition-all duration-300 group"
+                className="relative py-2 px-3 text-xs xl:text-sm text-text-medium hover:text-text-dark transition-all duration-300 group"
               >
                 <span>Why Choose Us</span>
                 <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-coral to-purple scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
               </button>
               <button
                 onClick={() => scrollToSection('syllabus')}
-                className="relative py-2 px-3 text-xs xl:text-sm font-extrabold text-text-medium hover:text-text-dark transition-all duration-300 group"
+                className="relative py-2 px-3 text-xs xl:text-sm text-text-medium hover:text-text-dark transition-all duration-300 group"
               >
                 <span>Curriculum</span>
                 <span className="absolute bottom-0 left-0 w-full h-[2.5px] bg-gradient-to-r from-coral to-purple scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
@@ -203,7 +216,7 @@ export default function Header({
                     setActiveCourse('cdec');
                     scrollToSection('hero');
                   }}
-                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black tracking-tight transition-all duration-300 border ${activeCourse === 'cdec'
+                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black transition-all duration-300 border ${activeCourse === 'cdec'
                     ? 'bg-coral border-coral text-white shadow-md shadow-coral/25 scale-100'
                     : 'border-transparent text-text-medium hover:text-coral hover:bg-coral/5'
                     }`}
@@ -220,7 +233,7 @@ export default function Header({
                     setActiveCourse('X-DSAAI');
                     scrollToSection('hero');
                   }}
-                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black tracking-tight transition-all duration-300 border ${activeCourse === 'X-DSAAI'
+                  className={`relative flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-black transition-all duration-300 border ${activeCourse === 'X-DSAAI'
                     ? 'bg-purple border-purple text-white shadow-md shadow-purple/25 scale-100'
                     : 'border-transparent text-text-medium hover:text-purple hover:bg-purple/5'
                     }`}
@@ -287,6 +300,7 @@ export default function Header({
                 </svg>
               </button>
             </div>
+            </div>
           </nav>
 
           {/* Mobile Drawer menu (Gorgeously App-Like) */}
@@ -303,7 +317,7 @@ export default function Header({
                   setActiveCourse('cdec');
                   scrollToSection('hero');
                 }}
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'cdec'
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs transition-all duration-300 border ${activeCourse === 'cdec'
                   ? 'bg-coral border-coral text-white shadow-md shadow-coral/15'
                   : 'border-slate-200/60 text-text-medium hover:text-coral bg-white hover:bg-coral/5'
                   }`}
@@ -320,7 +334,7 @@ export default function Header({
                   setActiveCourse('X-DSAAI');
                   scrollToSection('hero');
                 }}
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-extrabold transition-all duration-300 border ${activeCourse === 'X-DSAAI'
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs transition-all duration-300 border ${activeCourse === 'X-DSAAI'
                   ? 'bg-purple border-purple text-white shadow-md shadow-purple/15'
                   : 'border-slate-200/60 text-text-medium hover:text-purple bg-white hover:bg-purple/5'
                   }`}
@@ -337,7 +351,7 @@ export default function Header({
           <div className="flex flex-col gap-1 py-1">
             <button
               onClick={() => scrollToSection('highlights')}
-              className="w-full text-left font-extrabold text-sm text-text-medium hover:text-coral transition-colors py-3 border-b border-slate-100 px-2 flex items-center justify-between"
+              className="w-full text-left text-sm text-text-medium hover:text-coral transition-colors py-3 border-b border-slate-100 px-2 flex items-center justify-between"
             >
               <span>Why Choose Us</span>
               <svg className="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -346,7 +360,7 @@ export default function Header({
             </button>
             <button
               onClick={() => scrollToSection('syllabus')}
-              className="w-full text-left font-extrabold text-sm text-text-medium hover:text-coral transition-colors py-3 px-2 flex items-center justify-between"
+              className="w-full text-left text-sm text-text-medium hover:text-coral transition-colors py-3 px-2 flex items-center justify-between"
             >
               <span>Explore Curriculum</span>
               <svg className="h-4 w-4 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">

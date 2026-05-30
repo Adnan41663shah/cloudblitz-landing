@@ -2,6 +2,10 @@
 
 import React, { useState } from 'react';
 import { CourseType } from '../types';
+import {
+  TechShowcaseCard,
+  getTechShowcaseGlowVariant,
+} from './TechShowcaseCard';
 import { FaAws } from 'react-icons/fa';
 import { IoLogoTableau } from 'react-icons/io5';
 import {
@@ -323,7 +327,7 @@ const getTechIcon = (name: string, className: string = "h-6 w-6") => {
       <circle cx="12" cy="12" r="4" />
     </svg>
   );
-};;
+};
 
 export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps) {
   const isDevops = activeCourse === 'cdec';
@@ -344,7 +348,7 @@ export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps)
   };
 
   return (
-    <section id="tools-showcase" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border-light relative overflow-hidden">
+    <section id="tools-showcase" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-border-light relative overflow-x-clip">
       {/* Visual background glows */}
       <div className="absolute top-10 right-0 w-72 h-72 bg-coral/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-10 left-0 w-72 h-72 bg-purple/5 rounded-full blur-[100px] pointer-events-none" />
@@ -363,17 +367,19 @@ export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps)
       </div>
 
       {/* Grid Showcase */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 pt-1">
         {tools.map((tool, idx) => (
-          <div
+          <TechShowcaseCard
             key={idx}
+            glowVariant={getTechShowcaseGlowVariant(tool.badgeText, isDevops)}
             onClick={() => setSelectedTool(tool === selectedTool ? null : tool)}
-            className={`group rounded-3xl border border-border-light bg-white/50 p-6 hover:bg-white transition-all duration-300 flex flex-col justify-between cursor-pointer hover:-translate-y-1 hover:shadow-lg shadow-sm ${tool.accentColor}`}
+            className="group cursor-pointer"
+            surfaceClassName={`p-6 flex flex-col justify-between ${tool.accentColor}`}
           >
             <div className="space-y-5">
               {/* Icon & Category Alignment */}
               <div className="flex items-start justify-between gap-4">
-                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 border shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 ${
+                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 border shadow-sm ${
                   tool.badgeBg
                 }`}>
                   {getTechIcon(tool.name, "h-6 w-6")}
@@ -406,7 +412,7 @@ export default function TechShowcase({ activeCourse, openModal }: ShowcaseProps)
                 {tool.useCase}
               </p>
             </div>
-          </div>
+          </TechShowcaseCard>
         ))}
       </div>
 

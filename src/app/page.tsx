@@ -5,6 +5,7 @@ import { CourseType, ModalPurpose } from './types';
 import Header from './components/Header';
 import whatsappIcon from './assets/whatsapp-color-svgrepo-com.svg';
 import Hero from './components/Hero';
+import PlacementMarquee from './components/PlacementMarquee';
 import Highlights from './components/Highlights';
 import Syllabus from './components/Syllabus';
 import TechShowcase from './components/TechShowcase';
@@ -13,11 +14,31 @@ import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import SocialProof from './components/SocialProof';
 import LeadFormModal from './components/LeadFormModal';
+import { SyllabusDownloadProvider } from './components/SyllabusDownloadToast';
 import { SiteContent } from './types/admin';
 import AdminCustomizer from './components/AdminCustomizer';
 
+function getCourseFromUrlParams(fallback: CourseType): CourseType {
+  if (typeof window === 'undefined') return fallback;
+
+  const params = new URLSearchParams(window.location.search);
+  const courseParam = params.get('course') || params.get('ad') || params.get('utm_campaign');
+  if (!courseParam) return fallback;
+
+  const val = courseParam.toLowerCase();
+  if (['devops', 'cdec', 'cloud', 'aws'].some((term) => val.includes(term))) {
+    return 'cdec';
+  }
+  if (['datascience', 'X-DSAAI', 'data', 'ai', 'analytics'].some((term) => val.includes(term))) {
+    return 'X-DSAAI';
+  }
+  return fallback;
+}
+
 export default function Home({ initialCourse = 'cdec' }: { initialCourse?: CourseType }) {
-  const [activeCourse, setActiveCourse] = useState<CourseType>(initialCourse);
+  const [activeCourse, setActiveCourse] = useState<CourseType>(() =>
+    getCourseFromUrlParams(initialCourse),
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPreselectedCourse, setModalPreselectedCourse] = useState<CourseType>('cdec');
   const [modalPurpose, setModalPurpose] = useState<ModalPurpose>('consultation');
@@ -116,12 +137,12 @@ export default function Home({ initialCourse = 'cdec' }: { initialCourse?: Cours
     alert('Logged out admin session.');
   };
 
-  // Set hasOpenedOnce tracker when modal opens
-  useEffect(() => {
-    if (isModalOpen) {
-      setHasOpenedOnce(true);
-    }
-  }, [isModalOpen]);
+  const openModalWithCourse = (course: CourseType, purpose: ModalPurpose = 'consultation') => {
+    setModalPreselectedCourse(course);
+    setModalPurpose(purpose);
+    setHasOpenedOnce(true);
+    setIsModalOpen(true);
+  };
 
   // Initial 3-second auto-open timer upon arrival
   useEffect(() => {
@@ -146,31 +167,8 @@ export default function Home({ initialCourse = 'cdec' }: { initialCourse?: Cours
     return () => clearTimeout(loopTimer);
   }, [isModalOpen, activeCourse]);
 
-  // Ad Routing / Parameter Redirection Logic
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      // Support multiple query keys: course, ad, utm_campaign
-      const courseParam = params.get('course') || params.get('ad') || params.get('utm_campaign');
-
-      if (courseParam) {
-        const val = courseParam.toLowerCase();
-        if (['devops', 'cdec', 'cloud', 'aws'].some(term => val.includes(term))) {
-          setActiveCourse('cdec');
-        } else if (['datascience', 'X-DSAAI', 'data', 'ai', 'analytics'].some(term => val.includes(term))) {
-          setActiveCourse('X-DSAAI');
-        }
-      }
-    }
-  }, []);
-
-  const openModalWithCourse = (course: CourseType, purpose: ModalPurpose = 'consultation') => {
-    setModalPreselectedCourse(course);
-    setModalPurpose(purpose);
-    setIsModalOpen(true);
-  };
-
   return (
+    <SyllabusDownloadProvider>
     <div className="flex min-h-screen flex-col w-full bg-bg-main text-text-medium transition-colors duration-300 font-sans antialiased">
 
       {/* 1. Header with promo banner & navigation links */}
@@ -198,7 +196,10 @@ export default function Home({ initialCourse = 'cdec' }: { initialCourse?: Cours
           XDSAAISeats={content.heroXDSAAISeats}
         />
 
-        {/* 3. Global value highlights with background banner */}
+        {/* 3. Corporate trust / placement partner marquee */}
+        <PlacementMarquee />
+
+        {/* 4. Global value highlights with background banner */}
         <Highlights />
 
         {/* 4. Syllabus Expandable Accordions */}
@@ -339,5 +340,6 @@ export default function Home({ initialCourse = 'cdec' }: { initialCourse?: Cours
       )}
 
     </div>
+    </SyllabusDownloadProvider>
   );
 }
